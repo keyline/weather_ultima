@@ -1,0 +1,168 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --color-weather-primary: #0b376d;
+    --color-weather-accent: #fbbf24;
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* ------------------------------------------------------------------ *
+ * Admin form / control design system — one place, applied everywhere. *
+ * Professional business dashboard: 4px radius, 44px controls.         *
+ * ------------------------------------------------------------------ */
+@layer components {
+    .admin-label {
+        @apply mb-1.5 block text-sm font-semibold leading-5 text-slate-800;
+    }
+
+    .admin-required::after {
+        content: ' *';
+        @apply text-rose-500;
+    }
+
+    .admin-hint {
+        @apply mt-1 text-xs leading-4 text-slate-400;
+    }
+
+    .admin-error {
+        @apply mt-1 flex items-start gap-1 text-sm leading-5 text-rose-600;
+    }
+
+    .admin-input,
+    .admin-select,
+    .admin-textarea {
+        @apply block w-full rounded border border-slate-300 bg-white text-sm leading-5 text-slate-900 shadow-sm transition;
+        @apply placeholder:text-slate-400;
+        @apply focus:border-[#0b376d] focus:outline-none focus:ring-1 focus:ring-[#0b376d];
+        @apply disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-400;
+    }
+
+    .admin-input,
+    .admin-select {
+        @apply h-11 px-3 py-2.5;
+    }
+
+    .admin-select {
+        @apply pr-9;
+    }
+
+    .admin-textarea {
+        @apply min-h-[7.5rem] resize-y px-3 py-2.5;
+    }
+
+    .admin-input--invalid,
+    .admin-select--invalid,
+    .admin-textarea--invalid {
+        @apply border-rose-400 focus:border-rose-500 focus:ring-rose-400;
+    }
+
+    .admin-file {
+        @apply block w-full cursor-pointer rounded border border-dashed border-slate-300 bg-slate-50 p-2.5 text-sm text-slate-600 transition hover:border-[#0b376d];
+        @apply file:mr-3 file:h-9 file:cursor-pointer file:rounded file:border-0 file:bg-[#0b376d] file:px-3 file:text-sm file:font-semibold file:text-white;
+        @apply hover:file:bg-[#092d59];
+    }
+
+    .admin-card {
+        @apply rounded-lg border border-slate-200 bg-white shadow-sm;
+    }
+
+    .admin-section {
+        @apply rounded-lg border border-slate-200 bg-white p-6 shadow-sm;
+    }
+
+    .admin-section-title {
+        @apply text-base font-bold text-slate-900;
+    }
+
+    .admin-btn {
+        @apply inline-flex h-11 items-center justify-center gap-2 rounded px-4 text-sm font-semibold transition;
+        @apply focus:outline-none focus:ring-1 focus:ring-[#0b376d] focus:ring-offset-1;
+        @apply disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .admin-btn--primary {
+        @apply bg-[#0b376d] text-white hover:bg-[#092d59];
+    }
+
+    .admin-btn--ghost {
+        @apply border border-slate-300 bg-white text-slate-600 hover:border-[#0b376d] hover:text-[#0b376d];
+    }
+
+    .admin-btn--danger {
+        @apply border border-rose-200 bg-white text-rose-600 hover:bg-rose-50;
+    }
+
+    .admin-btn--success {
+        @apply border border-emerald-200 bg-white text-emerald-700 hover:bg-emerald-50;
+    }
+
+    .admin-btn--sm {
+        @apply h-9 gap-1.5 px-3 text-xs;
+    }
+
+    .admin-alert {
+        @apply flex items-start gap-2 rounded border px-4 py-3 text-sm font-medium;
+    }
+
+    .admin-alert--success {
+        @apply border-emerald-200 bg-emerald-50 text-emerald-800;
+    }
+
+    .admin-alert--error {
+        @apply border-rose-200 bg-rose-50 text-rose-700;
+    }
+
+    .admin-badge {
+        @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold;
+    }
+}
+
+/* ------------------------------------------------------------------ *
+ * Slim, branded scrollbars.                                           *
+ * ------------------------------------------------------------------ */
+
+/* Admin sidebar navigation — thin light thumb on the navy panel. */
+.admin-nav-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+.admin-nav-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.admin-nav-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.admin-nav-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+}
+.admin-nav-scroll:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Admin content area — subtle neutral scrollbar. */
+body:has(#admin-sidebar) {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+body:has(#admin-sidebar)::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+body:has(#admin-sidebar)::-webkit-scrollbar-track {
+    background: transparent;
+}
+body:has(#admin-sidebar)::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+}
+body:has(#admin-sidebar)::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+    background-clip: content-box;
+}
