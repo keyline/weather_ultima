@@ -78,7 +78,7 @@
 
     <!-- ABOUT THE FOUNDER -->
     <section class="wx-founder-section" id="founder">
-        <div class="container">
+        <div class="container test">
             @php
                 $founderName = $home->founder_name ?: 'Mr. Rabindra Goenka';
                 $founderRole = $home->founder_designation ?: '~ Founder & CEO';
