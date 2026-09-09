@@ -975,6 +975,18 @@ body {
     padding: 40px 20px;
 }
 
+.wx-station-updated {
+    grid-column: 1 / -1;
+    margin: 18px 0 0;
+    text-align: center;
+    color: var(--wx-text-muted);
+    font-size: 0.8rem;
+}
+
+.wx-station-body[hidden] {
+    display: none;
+}
+
 @media (max-width: 767px) {
     .wx-station-card {
         padding: 34px 22px;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin login · Weather Ultima</title>
+    <title>Reset your password · Weather Ultima</title>
     @vite (['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('material/css/all.min.css') }}" />
 </head>
@@ -27,12 +27,12 @@
             <div class="relative max-w-lg">
                 <span
                     class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-white/15 text-xl text-amber-300"
-                    ><i class="fa-solid fa-cloud-sun-rain"></i
+                    ><i class="fa-solid fa-key"></i
                 ></span>
                 <h1 class="text-4xl font-bold leading-tight text-white">
-                    Weather intelligence, managed with confidence.
+                    Locked out? We&rsquo;ll get you back in.
                 </h1>
-                <p class="mt-5 text-lg leading-8 text-sky-100">A secure, focused workspace for the people guiding Weather Ultima’s services and stations.</p>
+                <p class="mt-5 text-lg leading-8 text-sky-100">Enter the email on your administrator account and we&rsquo;ll send a secure link to choose a new password.</p>
             </div>
             <p class="relative text-sm text-sky-200">Science. Service. Sustainability.</p>
         </section>
@@ -57,14 +57,14 @@
                     <div>
                         <span
                             class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-sky-50 text-[#0b376d]"
-                            ><i class="fa-solid fa-lock"></i
+                            ><i class="fa-solid fa-envelope-open-text"></i
                         ></span>
                         <h2
                             class="mt-5 text-2xl font-bold tracking-tight text-slate-900"
                         >
-                            Admin sign in
+                            Forgot your password?
                         </h2>
-                        <p class="mt-2 text-sm leading-6 text-slate-500">Use your administrator account to access the secure dashboard.</p>
+                        <p class="mt-2 text-sm leading-6 text-slate-500">We&rsquo;ll email you a link to reset it. The link expires in 60 minutes.</p>
                     </div>
                     @if (session('status'))
                         <div
@@ -75,9 +75,9 @@
                     @endif
                     <form
                         method="POST"
-                        action="{{ route('admin.login.store') }}"
+                        action="{{ route('admin.password.email') }}"
                         class="mt-7 space-y-5"
-                        id="admin-login-form"
+                        id="forgot-password-form"
                     >
                         @csrf
                         <div>
@@ -100,87 +100,32 @@
                                 <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div>
-                            <label
-                                for="password"
-                                class="mb-2 block text-sm font-semibold text-slate-700"
-                                >Password</label
-                            >
-                            <div class="relative">
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    autocomplete="current-password"
-                                    required
-                                    class="admin-input pr-12 @error('password') admin-input--invalid @enderror"
-                                    placeholder="Enter your password"
-                                /><button
-                                    id="password-toggle"
-                                    type="button"
-                                    class="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-slate-400 transition hover:text-[#0b376d]"
-                                    aria-label="Show password"
-                                >
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                            </div>
-                            @error ('password')
-                                <p class="mt-2 text-sm text-rose-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                            <label
-                                class="flex cursor-pointer items-center gap-2.5 text-sm text-slate-600"
-                                ><input
-                                    type="checkbox"
-                                    name="remember"
-                                    value="1"
-                                    @checked (old('remember'))
-                                    class="h-4 w-4 rounded border-slate-300 text-[#0b376d] focus:ring-[#0b376d]"
-                                />
-                                Remember me on this device</label
-                            >
-                            <a
-                                href="{{ route('admin.password.request') }}"
-                                class="text-sm font-semibold text-[#0b376d] hover:underline"
-                                >Forgot password?</a
-                            >
-                        </div>
-                        <x-recaptcha action="login" />
+                        <x-recaptcha action="forgot_password" />
                         <button
-                            id="login-submit"
+                            id="forgot-submit"
                             type="submit"
                             class="admin-btn admin-btn--primary w-full disabled:cursor-wait"
                         >
-                            <span>Sign in securely</span
-                            ><i class="fa-solid fa-arrow-right"></i>
+                            <span>Email password reset link</span
+                            ><i class="fa-solid fa-paper-plane"></i>
                         </button>
                     </form>
                 </div>
-                <p class="mt-6 text-center text-xs leading-5 text-slate-400">Protected by secure session authentication and rate-limited sign-in.</p>
+                <p class="mt-6 text-center text-sm text-slate-500">
+                    <a href="{{ route('admin.login') }}" class="font-semibold text-[#0b376d] hover:underline">
+                        <i class="fa-solid fa-arrow-left text-xs"></i> Back to sign in
+                    </a>
+                </p>
             </div>
         </section>
     </main>
     <script>
-        const password = document.getElementById("password");
-        const passwordToggle = document.getElementById("password-toggle");
-        passwordToggle.addEventListener("click", () => {
-            const visible = password.type === "text";
-            password.type = visible ? "password" : "text";
-            passwordToggle.setAttribute(
-                "aria-label",
-                visible ? "Show password" : "Hide password",
-            );
-            passwordToggle.firstElementChild.className = visible
-                ? "fa-regular fa-eye"
-                : "fa-regular fa-eye-slash";
-        });
         document
-            .getElementById("admin-login-form")
+            .getElementById("forgot-password-form")
             .addEventListener("submit", () => {
-                const button = document.getElementById("login-submit");
+                const button = document.getElementById("forgot-submit");
                 button.disabled = true;
-                button.querySelector("span").textContent = "Signing in...";
+                button.querySelector("span").textContent = "Sending...";
                 button.querySelector("i").className =
                     "fa-solid fa-spinner animate-spin";
             });

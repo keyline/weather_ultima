@@ -459,11 +459,11 @@ $(function () {
         });
     }
 
-    // Weather station tabs — only Kolkata has live figures for now; the
-    // other stations swap in a placeholder until their data is wired up.
+    // Weather station tabs — every station has its panel rendered server-side
+    // (live figures from the Ambient Weather API, or a "coming soon" note when
+    // that station has no device configured). Switching just toggles panels.
     var stationTabs = document.querySelectorAll(".wx-station-tab");
-    var stationBody = document.getElementById("wxStationBody");
-    var stationDefaultHtml = stationBody ? stationBody.innerHTML : "";
+    var stationPanels = document.querySelectorAll("[data-station-panel]");
 
     stationTabs.forEach(function (tab) {
         tab.addEventListener("click", function () {
@@ -474,16 +474,9 @@ $(function () {
             tab.classList.add("is-active");
             tab.setAttribute("aria-selected", "true");
 
-            if (!stationBody) {
-                return;
-            }
-
-            if (tab.dataset.station === "Kolkata") {
-                stationBody.innerHTML = stationDefaultHtml;
-            } else {
-                stationBody.innerHTML = '<p class="wx-station-empty">Live station data for '
-                    + tab.dataset.station + " is coming soon.</p>";
-            }
+            stationPanels.forEach(function (panel) {
+                panel.hidden = panel.dataset.stationPanel !== tab.dataset.station;
+            });
         });
     });
 

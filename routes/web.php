@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminNewPasswordController;
+use App\Http\Controllers\Admin\AdminPasswordResetLinkController;
 use App\Http\Controllers\Admin\BrandLogoController;
 use App\Http\Controllers\Admin\BrevoSettingController;
 use App\Http\Controllers\Admin\ContactEnquiryController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\Admin\EmailSettingController;
 use App\Http\Controllers\Admin\EnquiryNotificationController;
 use App\Http\Controllers\Admin\HomeBannerController;
 use App\Http\Controllers\Admin\HomeFounderController;
+use App\Http\Controllers\Admin\MaintenanceController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductEnquiryController as AdminProductEnquiryController;
 use App\Http\Controllers\Admin\RecaptchaSettingController;
@@ -20,6 +23,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SmtpSettingController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\WeatherSettingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -38,6 +42,11 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
     Route::middleware('guest')->group(function (): void {
         Route::get('login', [AdminAuthenticatedSessionController::class, 'create'])->name('login');
         Route::post('login', [AdminAuthenticatedSessionController::class, 'store'])->middleware('throttle:admin-login')->name('login.store');
+
+        Route::get('forgot-password', [AdminPasswordResetLinkController::class, 'create'])->name('password.request');
+        Route::post('forgot-password', [AdminPasswordResetLinkController::class, 'store'])->middleware('throttle:admin-login')->name('password.email');
+        Route::get('reset-password/{token}', [AdminNewPasswordController::class, 'create'])->name('password.reset');
+        Route::post('reset-password', [AdminNewPasswordController::class, 'store'])->middleware('throttle:admin-login')->name('password.update');
     });
 
     Route::middleware(['auth', 'admin'])->group(function (): void {
@@ -99,8 +108,13 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::post('brevo/test', [BrevoSettingController::class, 'test'])->name('brevo.test');
             Route::get('recaptcha', [RecaptchaSettingController::class, 'edit'])->name('recaptcha.edit');
             Route::put('recaptcha', [RecaptchaSettingController::class, 'update'])->name('recaptcha.update');
+            Route::get('weather', [WeatherSettingController::class, 'edit'])->name('weather.edit');
+            Route::put('weather', [WeatherSettingController::class, 'update'])->name('weather.update');
+            Route::post('weather/test', [WeatherSettingController::class, 'test'])->middleware('throttle:10,1')->name('weather.test');
             Route::get('site', [SiteSettingController::class, 'edit'])->name('site.edit');
             Route::put('site', [SiteSettingController::class, 'update'])->name('site.update');
+            Route::get('maintenance', [MaintenanceController::class, 'edit'])->name('maintenance.edit');
+            Route::post('maintenance/clear-cache', [MaintenanceController::class, 'clearCache'])->middleware('throttle:10,1')->name('maintenance.clear-cache');
         });
 
         Route::post('logout', [AdminAuthenticatedSessionController::class, 'destroy'])->name('logout');

@@ -160,69 +160,19 @@
                     </button>
                 </div>
 
-                <div class="wx-station-body" id="wxStationBody">
-                    <div class="wx-station-map">
-                        <img
-                            src="images/service1.png"
-                            alt="Kolkata weather station map"
-                        />
-                    </div>
-                    <div class="wx-station-grid">
-                        <div class="wx-station-stat">
-                            <img
-                                src="images/icon1.svg"
-                                alt=""
-                                class="wx-station-icon"
-                            />
-                            <p class="wx-station-label">Temperature</p>
-                            <p class="wx-station-value">31.1&deg;C</p>
+                <div id="wxStationBody">
+                    @foreach ($weatherStations as $stationName => $stationReading)
+                        <div
+                            class="wx-station-body"
+                            data-station-panel="{{ $stationName }}"
+                            @unless ($loop->first) hidden @endunless
+                        >
+                            @include ('partials.weather-station-panel', [
+                                'station' => $stationName,
+                                'reading' => $stationReading,
+                            ])
                         </div>
-                        <div class="wx-station-stat">
-                            <img
-                                src="images/icon2.svg"
-                                alt=""
-                                class="wx-station-icon"
-                            />
-                            <p class="wx-station-label">Feels Like</p>
-                            <p class="wx-station-value">35.0&deg;C</p>
-                        </div>
-                        <div class="wx-station-stat">
-                            <img
-                                src="images/icon3.svg"
-                                alt=""
-                                class="wx-station-icon"
-                            />
-                            <p class="wx-station-label">Humidity</p>
-                            <p class="wx-station-value">75%</p>
-                        </div>
-                        <div class="wx-station-stat">
-                            <img
-                                src="images/icon4.svg"
-                                alt=""
-                                class="wx-station-icon"
-                            />
-                            <p class="wx-station-label">Wind Speed</p>
-                            <p class="wx-station-value">8.0 km/h</p>
-                        </div>
-                        <div class="wx-station-stat">
-                            <img
-                                src="images/icon5.svg"
-                                alt=""
-                                class="wx-station-icon"
-                            />
-                            <p class="wx-station-label">Hourly Rainfall</p>
-                            <p class="wx-station-value">0.0 mm</p>
-                        </div>
-                        <div class="wx-station-stat">
-                            <img
-                                src="images/icon6.svg"
-                                alt=""
-                                class="wx-station-icon"
-                            />
-                            <p class="wx-station-label">Daily Rainfall</p>
-                            <p class="wx-station-value">0.0 mm</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -268,7 +218,7 @@
         />
         <div class="container">
             <div class="wx-section-head reveal" data-reveal>
-                <h2>When the Weather Makes News, They Call the Experts</h2>
+                <h2>When the Weather Makes News, They Call the Experts 222222</h2>
                 <p>Expert insights, panel discussions and conversations across leading media platforms.</p>
             </div>
             <div class="wx-media-grid reveal" data-reveal data-reveal-delay="1">

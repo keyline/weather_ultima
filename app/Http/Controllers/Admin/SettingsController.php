@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BrevoSetting;
 use App\Models\RecaptchaSetting;
 use App\Models\SmtpSetting;
+use App\Models\WeatherSetting;
 use Illuminate\View\View;
 
 class SettingsController extends Controller
@@ -16,6 +17,7 @@ class SettingsController extends Controller
             'smtp' => SmtpSetting::current(),
             'brevo' => BrevoSetting::current(),
             'recaptcha' => RecaptchaSetting::current(),
+            'weather' => WeatherSetting::current(),
         ]);
     }
 }

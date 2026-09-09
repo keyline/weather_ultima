@@ -25,3 +25,6 @@ one-off search boxes use the raw `.admin-*` classes.
 
 Every field needs a clear label and a context-specific placeholder ("Enter the customer's full
 name", not "Enter value"). Mark only required fields with `*`.
+
+## Tailwind must scan resources/views directly (@source)
+`resources/css/app.css` declares `@source '../views/**/*.blade.php'` so `npm run build` produces complete admin/login CSS on its own. Do NOT remove it: without it, Tailwind was only picking up classes from `@source '../../storage/framework/views/*.php'` (compiled Blade), so a build run after `php artisan view:clear` (empty cache) shipped CSS missing classes like `lg:grid-cols-2` / `lg:pl-72` and the admin layout broke. Tailwind/Vite keeps a cache at `node_modules/.vite` — after changing `@source` or chasing a "class missing from build" bug, `rm -rf node_modules/.vite public/build` before rebuilding. Tailwind CSS is only used by the admin panel + `admin/auth/*` (login/forgot/reset); the public site (home/products/services/contact) is Bootstrap and needs no build.

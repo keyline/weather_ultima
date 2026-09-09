@@ -81,7 +81,9 @@
                         ['label' => 'SMTP Settings', 'url' => route('admin.settings.smtp.edit'), 'active' => request()->routeIs('admin.settings.smtp.*')],
                         ['label' => 'Brevo', 'url' => route('admin.settings.brevo.edit'), 'active' => request()->routeIs('admin.settings.brevo.*')],
                         ['label' => 'Google reCAPTCHA', 'url' => route('admin.settings.recaptcha.edit'), 'active' => request()->routeIs('admin.settings.recaptcha.*')],
+                        ['label' => 'Weather Station', 'url' => route('admin.settings.weather.edit'), 'active' => request()->routeIs('admin.settings.weather.*')],
                         ['label' => 'Site Settings', 'url' => route('admin.settings.site.edit'), 'active' => request()->routeIs('admin.settings.site.*')],
+                        ['label' => 'Maintenance', 'url' => route('admin.settings.maintenance.edit'), 'active' => request()->routeIs('admin.settings.maintenance.*')],
                     ],
                 ],
             ];

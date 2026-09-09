@@ -128,7 +128,9 @@ class AdminNavigationTest extends TestCase
             ['route' => 'admin.settings.smtp.edit', 'label' => 'SMTP Settings'],
             ['route' => 'admin.settings.brevo.edit', 'label' => 'Brevo'],
             ['route' => 'admin.settings.recaptcha.edit', 'label' => 'Google reCAPTCHA'],
+            ['route' => 'admin.settings.weather.edit', 'label' => 'Weather Station'],
             ['route' => 'admin.settings.site.edit', 'label' => 'Site Settings'],
+            ['route' => 'admin.settings.maintenance.edit', 'label' => 'Maintenance'],
         ];
 
         foreach ($cases as $case) {

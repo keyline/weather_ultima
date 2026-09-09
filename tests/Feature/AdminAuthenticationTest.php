@@ -18,6 +18,24 @@ class AdminAuthenticationTest extends TestCase
             ->assertRedirect('/admin/login');
     }
 
+    public function test_signed_in_administrators_visiting_the_login_page_are_sent_to_the_dashboard(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $this->actingAs($admin)
+            ->get('/admin/login')
+            ->assertRedirect('/admin/dashboard');
+    }
+
+    public function test_signed_in_non_admins_visiting_the_login_page_are_sent_home_without_a_loop(): void
+    {
+        $user = User::factory()->create(['role' => 'user']);
+
+        $this->actingAs($user)
+            ->get('/admin/login')
+            ->assertRedirect(route('home'));
+    }
+
     public function test_non_admin_users_cannot_access_the_admin_dashboard(): void
     {
         $user = User::factory()->create(['role' => 'user']);

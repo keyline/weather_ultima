@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\EnquiryNotificationController;
 use App\Mail\MailChannelConfigurator;
 use App\Mail\Transport\BrevoApiTransport;
 use App\Models\SiteSetting;
+use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -21,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
     {
         RateLimiter::for('admin-login', fn (Request $request): Limit => Limit::perMinute(5)->by(mb_strtolower($request->string('email')->toString()).'|'.$request->ip()));
         RateLimiter::for('enquiry', fn (Request $request): Limit => Limit::perMinute(3)->by(mb_strtolower($request->string('email')->toString()).'|'.$request->ip()));
+
+        ResetPassword::createUrlUsing(fn (User $user, string $token): string => route('admin.password.reset', [
+            'token' => $token,
+            'email' => $user->getEmailForPasswordReset(),
+        ]));
 
         Mail::extend('brevo', fn (array $config): BrevoApiTransport => new BrevoApiTransport((string) ($config['key'] ?? '')));
 
