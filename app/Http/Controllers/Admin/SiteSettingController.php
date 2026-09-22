@@ -30,6 +30,7 @@ class SiteSettingController extends Controller
             'social_linkedin',
             'social_twitter',
             'social_youtube',
+            'whatsapp_number',
         ]);
 
         foreach (['header_logo', 'footer_logo', 'favicon'] as $field) {

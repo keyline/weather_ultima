@@ -21,3 +21,8 @@ The live site uses the **top-level** views (`resources/views/{home,products,serv
 
 ## AJAX enquiry forms + Thank-You modal
 Both the contact form and the product-enquiry modal form carry `data-ajax-enquiry` and a `<div data-form-error>`. `partials/enquiry-ajax.blade.php` (`@once @push('scripts')`) fetches with `Accept: application/json`, on success closes any parent `.modal` and shows `#wxThankYouModal` (`partials/thank-you-modal.blade.php`, branded, animated), on 422 lists field errors, on 429/5xx shows a generic message. Controllers return `response()->json(['message' => ...], 201)` when `$request->expectsJson()`, else redirect-with-status.
+
+## Floating WhatsApp button + inline styles caveat
+`partials/whatsapp-button.blade.php` renders a fixed bottom-right WhatsApp button on every page via `layouts/app.blade.php` (included after the footer). It's driven by `SiteSetting::whatsapp_number` / the `whatsapp_link` accessor (digits-only wa.me link) and hides itself when empty.
+
+Because it's included directly from the layout (not a child view), its CSS is an inline `<style>` tag next to the markup, NOT `@push('styles')` — a push from something the *parent* layout includes runs after `<head>`'s `@stack('styles')` has already rendered, so it would never show up. `@push` from a child page (e.g. home.blade.php) still works fine since Blade fully evaluates the child before the parent renders.

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
     'social_linkedin',
     'social_twitter',
     'social_youtube',
+    'whatsapp_number',
 ])]
 class SiteSetting extends Model
 {
@@ -85,6 +86,18 @@ class SiteSetting extends Model
             }
 
             return $links;
+        });
+    }
+
+    /**
+     * A wa.me link built from `whatsapp_number`, or null if none is set.
+     */
+    protected function whatsappLink(): Attribute
+    {
+        return Attribute::get(function (): ?string {
+            $digits = preg_replace('/\D/', '', (string) $this->whatsapp_number);
+
+            return filled($digits) ? "https://wa.me/{$digits}" : null;
         });
     }
 

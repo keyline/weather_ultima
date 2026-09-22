@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\EmailSettingController;
 use App\Http\Controllers\Admin\EnquiryNotificationController;
 use App\Http\Controllers\Admin\HomeBannerController;
 use App\Http\Controllers\Admin\HomeFounderController;
+use App\Http\Controllers\Admin\InstagramPostController;
 use App\Http\Controllers\Admin\MaintenanceController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductEnquiryController as AdminProductEnquiryController;
@@ -69,6 +70,10 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::delete('core-values/bulk', [CoreValueController::class, 'bulkDestroy'])->name('core-values.bulk-destroy');
             Route::patch('core-values/{core_value}/toggle', [CoreValueController::class, 'toggle'])->name('core-values.toggle');
             Route::resource('core-values', CoreValueController::class)->parameters(['core-values' => 'core_value'])->names('core-values')->except('show');
+
+            Route::delete('instagram/bulk', [InstagramPostController::class, 'bulkDestroy'])->name('instagram.bulk-destroy');
+            Route::patch('instagram/{instagram_post}/toggle', [InstagramPostController::class, 'toggle'])->name('instagram.toggle');
+            Route::resource('instagram', InstagramPostController::class)->parameters(['instagram' => 'instagram_post'])->names('instagram')->except('show');
         });
 
         Route::resource('products', AdminProductController::class)->except(['show']);

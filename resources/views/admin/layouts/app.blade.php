@@ -40,6 +40,7 @@
                         ['label' => 'Top Banner', 'url' => route('admin.home.banner.edit'), 'active' => request()->routeIs('admin.home.banner.*') || request()->routeIs('admin.home.cards.*')],
                         ['label' => 'About Founder', 'url' => route('admin.home.founder.edit'), 'active' => request()->routeIs('admin.home.founder.*')],
                         ['label' => 'Core Values', 'url' => route('admin.home.core-values.index'), 'active' => request()->routeIs('admin.home.core-values.*')],
+                        ['label' => 'Instagram Grid', 'url' => route('admin.home.instagram.index'), 'active' => request()->routeIs('admin.home.instagram.*')],
                     ],
                 ],
                 [

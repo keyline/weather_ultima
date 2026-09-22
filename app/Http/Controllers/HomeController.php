@@ -6,6 +6,7 @@ use App\Models\BrandLogo;
 use App\Models\CoreValue;
 use App\Models\DimensionCard;
 use App\Models\HomeSetting;
+use App\Models\InstagramPost;
 use App\Models\Testimonial;
 use App\Services\WeatherStationService;
 use Illuminate\View\View;
@@ -19,6 +20,7 @@ class HomeController extends Controller
             'dimensionCards' => DimensionCard::query()->enabled()->ordered()->get(),
             'brandLogos' => BrandLogo::query()->enabled()->ordered()->get(),
             'coreValues' => CoreValue::query()->enabled()->ordered()->get(),
+            'instagramPosts' => InstagramPost::query()->enabled()->ordered()->get(),
             'testimonials' => Testimonial::query()->enabled()->ordered()->get(),
             'weatherStations' => $weatherStation->stations(),
         ]);

@@ -67,6 +67,19 @@ class SiteSettingsManagementTest extends TestCase
         $this->assertCount(1, $settings->social_links);
     }
 
+    public function test_admin_can_set_a_whatsapp_number_and_the_public_button_links_to_it(): void
+    {
+        $this->actingAs($this->admin())
+            ->put(route('admin.settings.site.update'), $this->validPayload([
+                'whatsapp_number' => '+91 89102 96427',
+            ]))
+            ->assertRedirect();
+
+        $this->assertSame('https://wa.me/918910296427', SiteSetting::current()->whatsapp_link);
+
+        $this->get(route('home'))->assertOk()->assertSee('https://wa.me/918910296427', false);
+    }
+
     public function test_site_name_is_required_and_urls_are_validated(): void
     {
         $this->actingAs($this->admin())

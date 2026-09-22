@@ -10,6 +10,7 @@
     </main>
 
     @include ('layouts.footer')
+    @include ('partials.whatsapp-button')
 
     <script src="{{ asset('material/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('material/js/bootstrap.min.js') }}"></script>

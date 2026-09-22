@@ -84,6 +84,13 @@
                     :value="$settings->contact_address"
                     placeholder="Enter the office address shown on the site"
                 />
+                <x-admin.input
+                    name="whatsapp_number"
+                    label="WhatsApp number (optional)"
+                    :value="$settings->whatsapp_number"
+                    placeholder="e.g. +91 8910296427"
+                    hint="Powers the floating WhatsApp button on the public site. Include the country code. Leave empty to hide the button."
+                />
             </section>
 
             <section class="admin-section space-y-4">

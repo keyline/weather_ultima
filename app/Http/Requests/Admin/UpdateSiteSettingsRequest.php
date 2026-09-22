@@ -29,6 +29,7 @@ class UpdateSiteSettingsRequest extends FormRequest
             'social_linkedin' => $url,
             'social_twitter' => $url,
             'social_youtube' => $url,
+            'whatsapp_number' => ['nullable', 'string', 'max:40'],
             'header_logo' => $logo,
             'footer_logo' => $logo,
             'favicon' => ['nullable', 'file', 'mimes:png,jpg,jpeg,webp,svg,ico', 'max:1024'],

@@ -258,6 +258,33 @@
         </section>
     @endif
 
+    <!-- INSTAGRAM GRID -->
+    @if ($instagramPosts->isNotEmpty())
+        <section class="wx-insta-section" id="instagram">
+            <div class="container">
+                <div class="wx-section-head reveal" data-reveal>
+                    <h2>Follow Us on Instagram</h2>
+                    @if ($siteSettings->social_instagram)
+                        <p><a href="{{ $siteSettings->social_instagram }}" target="_blank" rel="noopener">@ Weather Ultima</a></p>
+                    @endif
+                </div>
+                <div class="wx-insta-grid reveal" data-reveal data-reveal-delay="1">
+                    @foreach ($instagramPosts as $post)
+                        <a
+                            href="{{ $post->link_url ?: ($siteSettings->social_instagram ?: '#') }}"
+                            target="_blank"
+                            rel="noopener"
+                            class="wx-insta-item"
+                        >
+                            <img src="{{ $post->image_url }}" alt="Instagram post" loading="lazy" />
+                            <span class="wx-insta-overlay"><i class="fa-brands fa-instagram"></i></span>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
     <!-- TESTIMONIALS -->
     @if ($testimonials->isNotEmpty())
         <section class="wx-testimonial-section" id="testimonials">
@@ -299,6 +326,64 @@
             max-height: 52px;
             width: auto;
             margin: 4px 0 18px;
+        }
+
+        .wx-insta-section {
+            padding: 60px 0;
+        }
+
+        .wx-insta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        @media (min-width: 576px) {
+            .wx-insta-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .wx-insta-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        .wx-insta-item {
+            position: relative;
+            display: block;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .wx-insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .wx-insta-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: #fff;
+            background: rgba(11, 55, 109, 0.55);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wx-insta-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .wx-insta-item:hover .wx-insta-overlay {
+            opacity: 1;
         }
     </style>
 @endpush
