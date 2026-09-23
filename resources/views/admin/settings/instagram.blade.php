@@ -5,15 +5,11 @@
 @section ('content')
     <div class="mx-auto max-w-3xl space-y-6">
         <p class="text-sm text-slate-500">
-            Feeds the homepage &ldquo;Follow Us on Instagram&rdquo; grid with your latest real posts, via the
-            <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api" target="_blank" rel="noopener" class="font-semibold text-[#0b376d] underline">Instagram Graph API</a>.
-            This needs an Instagram <span class="font-semibold">Business or Creator</span> account linked to a Facebook Page. In
-            <a href="https://developers.facebook.com/" target="_blank" rel="noopener" class="font-semibold text-[#0b376d] underline">Meta for Developers</a>,
-            create an app, use the <span class="font-semibold">Graph API Explorer</span> to generate a long-lived access token
-            (with the <code class="rounded bg-slate-100 px-1">instagram_basic</code> permission), then look up your account's
-            <span class="font-semibold">Instagram Business Account ID</span> from the linked Facebook Page. The token is stored
-            encrypted and never shown again. When the live feed isn't configured or can't be reached, the
-            <a href="{{ route('admin.home.instagram.index') }}" class="font-semibold text-[#0b376d] underline">fallback photos</a> are shown instead.
+            Feeds the homepage &ldquo;Follow Us on Instagram&rdquo; section. Three sources, in priority order:
+            <span class="font-semibold">1)</span> the embed code below, <span class="font-semibold">2)</span> the Graph API
+            connection further down, <span class="font-semibold">3)</span> the
+            <a href="{{ route('admin.home.instagram.index') }}" class="font-semibold text-[#0b376d] underline">manually uploaded fallback photos</a>.
+            The first one that's set up is what shows.
         </p>
 
         @if (session('status'))
@@ -46,7 +42,33 @@
             @method ('PUT')
 
             <section class="admin-section space-y-4">
-                <h2 class="admin-section-title">API credentials</h2>
+                <h2 class="admin-section-title">Embed code <span class="text-xs font-normal text-slate-400">(simplest option)</span></h2>
+                <p class="admin-hint">
+                    Sign up with a widget service &mdash;
+                    <a href="https://behold.so/" target="_blank" rel="noopener" class="font-semibold text-[#0b376d] underline">Behold.so</a>,
+                    <a href="https://snapwidget.com/" target="_blank" rel="noopener" class="font-semibold text-[#0b376d] underline">SnapWidget</a>,
+                    or <a href="https://elfsight.com/instagram-feed-widget/" target="_blank" rel="noopener" class="font-semibold text-[#0b376d] underline">Elfsight</a> &mdash;
+                    connect your Instagram account there with a normal login (no Meta developer app needed), and paste the
+                    embed code they give you below. It'll show up on the homepage exactly as it looks on their site. Leave
+                    empty to use the Graph API or fallback photos instead.
+                </p>
+                <div>
+                    <label for="embed_code" class="admin-label">Embed code</label>
+                    <textarea
+                        id="embed_code"
+                        name="embed_code"
+                        rows="5"
+                        placeholder="Paste the <script>/<div> snippet from your widget provider here"
+                        class="admin-input font-mono text-xs @error('embed_code') border-rose-400 @enderror"
+                    >{{ old('embed_code', $settings->embed_code) }}</textarea>
+                    @error ('embed_code')
+                        <p class="admin-error"><i class="fa-solid fa-circle-exclamation mt-0.5 text-xs"></i> {{ $message }}</p>
+                    @enderror
+                </div>
+            </section>
+
+            <section class="admin-section space-y-4">
+                <h2 class="admin-section-title">Advanced: Instagram Graph API <span class="text-xs font-normal text-slate-400">(optional, only used when there's no embed code above)</span></h2>
                 <x-admin.input
                     name="access_token"
                     label="Access token"
@@ -80,7 +102,7 @@
                     <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $settings->is_active)) class="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#0b376d] focus:ring-[#0b376d]" />
                     <span>
                         Show your live Instagram posts on the homepage.
-                        <span class="mt-0.5 block text-xs text-slate-400">Requires a saved access token and Business Account ID. When off, or if the API can't be reached, the fallback photos are shown instead.</span>
+                        <span class="mt-0.5 block text-xs text-slate-400">Requires a saved access token and Business Account ID, and no embed code above (embed code always wins). When off, or if the API can't be reached, the fallback photos are shown instead.</span>
                     </span>
                 </label>
                 @error ('is_active')

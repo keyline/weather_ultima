@@ -160,4 +160,31 @@ class InstagramSettingsTest extends TestCase
             ->assertOk()
             ->assertSee($post->image_url, false);
     }
+
+    public function test_embed_code_takes_priority_over_the_graph_api_and_fallback(): void
+    {
+        Http::preventStrayRequests();
+        InstagramPost::factory()->create(['is_enabled' => true]);
+
+        InstagramSetting::query()->create([
+            'embed_code' => '<div class="fake-widget" data-testid="widget-marker"></div>',
+        ]);
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('data-testid="widget-marker"', false);
+    }
+
+    public function test_admin_can_save_an_embed_code(): void
+    {
+        $this->actingAs($this->admin())
+            ->put(route('admin.settings.instagram.update'), ['embed_code' => '<script src="https://snapwidget.com/js/snapwidget.js"></script>'])
+            ->assertRedirect()
+            ->assertSessionHas('status');
+
+        $this->assertSame(
+            '<script src="https://snapwidget.com/js/snapwidget.js"></script>',
+            InstagramSetting::current()->embed_code,
+        );
+    }
 }

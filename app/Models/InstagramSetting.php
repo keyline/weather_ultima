@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
     'access_token',
     'instagram_user_id',
     'username',
+    'embed_code',
     'token_expires_at',
     'is_active',
 ])]
@@ -24,6 +25,7 @@ class InstagramSetting extends Model
             'access_token' => null,
             'instagram_user_id' => null,
             'username' => null,
+            'embed_code' => null,
             'token_expires_at' => null,
             'is_active' => false,
         ];
@@ -32,6 +34,16 @@ class InstagramSetting extends Model
     public static function current(): self
     {
         return static::query()->firstOrCreate([], static::defaults());
+    }
+
+    /**
+     * A widget embed snippet (SnapWidget, Elfsight, Behold.so, etc.) has been
+     * pasted in. This takes priority over the Graph API and the manual
+     * fallback photos — it's the simplest way to show a live feed.
+     */
+    public function hasEmbedCode(): bool
+    {
+        return filled($this->embed_code);
     }
 
     public function hasAccessToken(): bool

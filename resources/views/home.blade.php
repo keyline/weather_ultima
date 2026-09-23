@@ -259,7 +259,7 @@
     @endif
 
     <!-- INSTAGRAM GRID -->
-    @if ($instagramPosts->isNotEmpty())
+    @if ($instagramEmbedCode || $instagramPosts->isNotEmpty())
         <section class="wx-insta-section" id="instagram">
             <div class="container">
                 <div class="wx-section-head reveal" data-reveal>
@@ -268,19 +268,25 @@
                         <p><a href="{{ $siteSettings->social_instagram }}" target="_blank" rel="noopener">@ Weather Ultima</a></p>
                     @endif
                 </div>
-                <div class="wx-insta-carousel owl-carousel reveal" data-reveal data-reveal-delay="1">
-                    @foreach ($instagramPosts as $post)
-                        <a
-                            href="{{ $post->link_url ?: ($siteSettings->social_instagram ?: '#') }}"
-                            target="_blank"
-                            rel="noopener"
-                            class="wx-insta-item"
-                        >
-                            <img src="{{ $post->image_url }}" alt="Instagram post" loading="lazy" />
-                            <span class="wx-insta-overlay"><i class="fa-brands fa-instagram"></i></span>
-                        </a>
-                    @endforeach
-                </div>
+
+                @if ($instagramEmbedCode)
+                    {{-- Admin-only field (see .ai/rules/partials.md) — intentionally unescaped, it's a widget <script>/<div> snippet. --}}
+                    <div class="wx-insta-embed reveal" data-reveal data-reveal-delay="1">{!! $instagramEmbedCode !!}</div>
+                @else
+                    <div class="wx-insta-carousel owl-carousel reveal" data-reveal data-reveal-delay="1">
+                        @foreach ($instagramPosts as $post)
+                            <a
+                                href="{{ $post->link_url ?: ($siteSettings->social_instagram ?: '#') }}"
+                                target="_blank"
+                                rel="noopener"
+                                class="wx-insta-item"
+                            >
+                                <img src="{{ $post->image_url }}" alt="Instagram post" loading="lazy" />
+                                <span class="wx-insta-overlay"><i class="fa-brands fa-instagram"></i></span>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </section>
     @endif

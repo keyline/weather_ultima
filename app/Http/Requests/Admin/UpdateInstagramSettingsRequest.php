@@ -19,6 +19,7 @@ class UpdateInstagramSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'embed_code' => ['nullable', 'string', 'max:20000'],
             'access_token' => ['nullable', 'string', 'max:4096'],
             'instagram_user_id' => ['nullable', 'string', 'max:64'],
             'token_expires_at' => ['nullable', 'date'],
