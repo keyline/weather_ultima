@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\EnquiryNotificationController;
 use App\Http\Controllers\Admin\HomeBannerController;
 use App\Http\Controllers\Admin\HomeFounderController;
 use App\Http\Controllers\Admin\InstagramPostController;
+use App\Http\Controllers\Admin\InstagramSettingController;
 use App\Http\Controllers\Admin\MaintenanceController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductEnquiryController as AdminProductEnquiryController;
@@ -116,6 +117,9 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::get('weather', [WeatherSettingController::class, 'edit'])->name('weather.edit');
             Route::put('weather', [WeatherSettingController::class, 'update'])->name('weather.update');
             Route::post('weather/test', [WeatherSettingController::class, 'test'])->middleware('throttle:10,1')->name('weather.test');
+            Route::get('instagram', [InstagramSettingController::class, 'edit'])->name('instagram.edit');
+            Route::put('instagram', [InstagramSettingController::class, 'update'])->name('instagram.update');
+            Route::post('instagram/test', [InstagramSettingController::class, 'test'])->middleware('throttle:10,1')->name('instagram.test');
             Route::get('site', [SiteSettingController::class, 'edit'])->name('site.edit');
             Route::put('site', [SiteSettingController::class, 'update'])->name('site.update');
             Route::get('maintenance', [MaintenanceController::class, 'edit'])->name('maintenance.edit');

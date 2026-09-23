@@ -268,7 +268,7 @@
                         <p><a href="{{ $siteSettings->social_instagram }}" target="_blank" rel="noopener">@ Weather Ultima</a></p>
                     @endif
                 </div>
-                <div class="wx-insta-grid reveal" data-reveal data-reveal-delay="1">
+                <div class="wx-insta-carousel owl-carousel reveal" data-reveal data-reveal-delay="1">
                     @foreach ($instagramPosts as $post)
                         <a
                             href="{{ $post->link_url ?: ($siteSettings->social_instagram ?: '#') }}"
@@ -332,22 +332,8 @@
             padding: 60px 0;
         }
 
-        .wx-insta-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
-
-        @media (min-width: 576px) {
-            .wx-insta-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 992px) {
-            .wx-insta-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
+        .wx-insta-carousel .owl-stage-outer {
+            padding: 4px 2px 10px;
         }
 
         .wx-insta-item {

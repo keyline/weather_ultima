@@ -52,6 +52,26 @@ $(function () {
         }
     });
 
+    $(".wx-insta-carousel").owlCarousel({
+        loop: false,
+        margin: 14,
+        nav: true,
+        dots: false,
+        autoplay: false,
+        smartSpeed: 500,
+        navText: [
+            '<i class="fa-solid fa-arrow-left"></i>',
+            '<i class="fa-solid fa-arrow-right"></i>'
+        ],
+        responsive: {
+            0: { items: 2 },
+            576: { items: 3 },
+            768: { items: 4 },
+            992: { items: 5 },
+            1400: { items: 6 }
+        }
+    });
+
     var aboutSection = document.querySelector(".wx-stats-section");
     var hasCounted = false;
 

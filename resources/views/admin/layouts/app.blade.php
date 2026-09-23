@@ -40,7 +40,7 @@
                         ['label' => 'Top Banner', 'url' => route('admin.home.banner.edit'), 'active' => request()->routeIs('admin.home.banner.*') || request()->routeIs('admin.home.cards.*')],
                         ['label' => 'About Founder', 'url' => route('admin.home.founder.edit'), 'active' => request()->routeIs('admin.home.founder.*')],
                         ['label' => 'Core Values', 'url' => route('admin.home.core-values.index'), 'active' => request()->routeIs('admin.home.core-values.*')],
-                        ['label' => 'Instagram Grid', 'url' => route('admin.home.instagram.index'), 'active' => request()->routeIs('admin.home.instagram.*')],
+                        ['label' => 'Instagram Grid (fallback)', 'url' => route('admin.home.instagram.index'), 'active' => request()->routeIs('admin.home.instagram.*')],
                     ],
                 ],
                 [
@@ -83,6 +83,7 @@
                         ['label' => 'Brevo', 'url' => route('admin.settings.brevo.edit'), 'active' => request()->routeIs('admin.settings.brevo.*')],
                         ['label' => 'Google reCAPTCHA', 'url' => route('admin.settings.recaptcha.edit'), 'active' => request()->routeIs('admin.settings.recaptcha.*')],
                         ['label' => 'Weather Station', 'url' => route('admin.settings.weather.edit'), 'active' => request()->routeIs('admin.settings.weather.*')],
+                        ['label' => 'Instagram Feed', 'url' => route('admin.settings.instagram.edit'), 'active' => request()->routeIs('admin.settings.instagram.*')],
                         ['label' => 'Site Settings', 'url' => route('admin.settings.site.edit'), 'active' => request()->routeIs('admin.settings.site.*')],
                         ['label' => 'Maintenance', 'url' => route('admin.settings.maintenance.edit'), 'active' => request()->routeIs('admin.settings.maintenance.*')],
                     ],

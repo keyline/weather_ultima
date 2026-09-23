@@ -15,6 +15,7 @@
             ['label' => 'Brevo', 'icon' => 'fa-paper-plane', 'url' => route('admin.settings.brevo.edit'), 'desc' => 'API-based email delivery through Brevo (takes priority over SMTP).', 'badge' => $brevo->is_active],
             ['label' => 'Google reCAPTCHA', 'icon' => 'fa-shield-halved', 'url' => route('admin.settings.recaptcha.edit'), 'desc' => 'Spam protection for the contact, enquiry and login forms.', 'badge' => $recaptcha->is_active],
             ['label' => 'Weather Station', 'icon' => 'fa-cloud-sun-rain', 'url' => route('admin.settings.weather.edit'), 'desc' => 'Live homepage weather readings from the Ambient Weather Network API.', 'badge' => $weather->is_active],
+            ['label' => 'Instagram Feed', 'icon' => 'fa-image', 'url' => route('admin.settings.instagram.edit'), 'desc' => 'Live homepage Instagram grid, pulled from the Instagram Graph API.', 'badge' => $instagram->is_active],
             ['label' => 'Maintenance', 'icon' => 'fa-broom', 'url' => route('admin.settings.maintenance.edit'), 'desc' => 'Clear cached views, config and routes after uploading updated files.', 'badge' => null],
         ];
     @endphp

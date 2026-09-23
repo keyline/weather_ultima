@@ -5,7 +5,7 @@
 @section ('content')
     <div class="mx-auto max-w-6xl space-y-6">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p class="text-sm text-slate-500">Photos shown in the Instagram grid on the homepage.</p>
+            <p class="text-sm text-slate-500">Fallback photos for the homepage Instagram grid. These only show up when the live feed (Settings &rarr; Instagram Feed) isn't configured or can't be reached &mdash; otherwise your real Instagram posts are shown instead.</p>
             <a href="{{ route('admin.home.instagram.create') }}" class="admin-btn admin-btn--primary">
                 <i class="fa-solid fa-plus"></i> Add photo
             </a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrevoSetting;
+use App\Models\InstagramSetting;
 use App\Models\RecaptchaSetting;
 use App\Models\SmtpSetting;
 use App\Models\WeatherSetting;
@@ -18,6 +19,7 @@ class SettingsController extends Controller
             'brevo' => BrevoSetting::current(),
             'recaptcha' => RecaptchaSetting::current(),
             'weather' => WeatherSetting::current(),
+            'instagram' => InstagramSetting::current(),
         ]);
     }
 }
