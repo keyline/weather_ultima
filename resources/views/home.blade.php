@@ -218,7 +218,7 @@
         />
         <div class="container">
             <div class="wx-section-head reveal" data-reveal>
-                <h2>When the Weather Makes News, They Call the Experts 222222</h2>
+                <h2>When the Weather Makes News, They Call the Experts</h2>
                 <p>Expert insights, panel discussions and conversations across leading media platforms.</p>
             </div>
             <div class="wx-media-grid reveal" data-reveal data-reveal-delay="1">
