@@ -129,6 +129,17 @@ class ServiceController extends Controller
         return redirect()->route('admin.services.edit', $service)->with('status', 'Image order and captions saved.');
     }
 
+    public function replaceImage(StoreServiceImageRequest $request, Service $service, ServiceImage $serviceImage): RedirectResponse
+    {
+        abort_unless($serviceImage->service_id === $service->id, 404);
+
+        $path = $request->file('image')->store('services', 'public');
+        $this->deleteImage($serviceImage->image);
+        $serviceImage->update(['image' => $path]);
+
+        return redirect()->route('admin.services.edit', $service)->with('status', 'Image replaced.');
+    }
+
     public function destroyImage(Service $service, ServiceImage $serviceImage): RedirectResponse
     {
         abort_unless($serviceImage->service_id === $service->id, 404);

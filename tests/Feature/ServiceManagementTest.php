@@ -160,6 +160,36 @@ class ServiceManagementTest extends TestCase
         $this->assertModelMissing($first);
     }
 
+    public function test_admin_can_replace_a_service_image_in_place(): void
+    {
+        Storage::fake('public');
+        $admin = User::factory()->create(['role' => 'admin']);
+        $service = Service::factory()->create();
+        $other = Service::factory()->create();
+
+        $this->actingAs($admin)->post(route('admin.services.images.store', $service), [
+            'image' => UploadedFile::fake()->image('old.jpg'),
+            'alt_text' => 'Keep me',
+        ]);
+        $image = $service->images()->first();
+        $old = $image->image;
+
+        $this->actingAs($admin)
+            ->post(route('admin.services.images.replace', [$service, $image]), ['image' => UploadedFile::fake()->image('new.jpg')])
+            ->assertRedirect(route('admin.services.edit', $service))
+            ->assertSessionHas('status');
+
+        $image->refresh();
+        $this->assertNotSame($old, $image->image);
+        $this->assertSame('Keep me', $image->alt_text);
+        Storage::disk('public')->assertMissing($old);
+        Storage::disk('public')->assertExists($image->image);
+
+        $this->actingAs($admin)
+            ->post(route('admin.services.images.replace', [$other, $image]), ['image' => UploadedFile::fake()->image('x.jpg')])
+            ->assertNotFound();
+    }
+
     public function test_image_endpoints_reject_non_admins(): void
     {
         $service = Service::factory()->create();

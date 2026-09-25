@@ -36,7 +36,14 @@
                                 <label class="admin-label text-xs">Alt text</label>
                                 <input type="text" name="images[{{ $i }}][alt_text]" value="{{ $image->alt_text }}" placeholder="Describe the image" class="admin-input" />
                             </div>
-                            {{-- Submits the separate delete form below (nested forms are invalid HTML). --}}
+                            {{-- Replace / delete use separate forms below (nested forms are invalid HTML) and are linked via the form="" attribute. --}}
+                            <div class="min-w-52 flex-1">
+                                <label class="admin-label text-xs">Change image</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="file" name="image" form="replace-image-{{ $image->id }}" accept="image/png,image/jpeg,image/webp" class="admin-file text-xs" />
+                                    <button type="submit" form="replace-image-{{ $image->id }}" class="admin-btn admin-btn--ghost admin-btn--sm">Replace</button>
+                                </div>
+                            </div>
                             <button type="submit" form="delete-image-{{ $image->id }}" class="admin-btn admin-btn--danger admin-btn--sm ml-auto" aria-label="Remove this image" title="Remove this image">
                                 <i class="fa-solid fa-trash-can"></i> Remove
                             </button>
@@ -48,6 +55,9 @@
                 </form>
 
                 @foreach ($service->images as $image)
+                    <form id="replace-image-{{ $image->id }}" method="POST" action="{{ route('admin.services.images.replace', [$service, $image]) }}" enctype="multipart/form-data" class="hidden">
+                        @csrf
+                    </form>
                     <form id="delete-image-{{ $image->id }}" method="POST" action="{{ route('admin.services.images.destroy', [$service, $image]) }}" onsubmit="return confirm('Remove this image?');" class="hidden">
                         @csrf
                         @method ('DELETE')

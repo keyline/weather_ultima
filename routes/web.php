@@ -98,6 +98,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::patch('services/{service}/toggle', [AdminServiceController::class, 'toggle'])->name('services.toggle');
         Route::post('services/{service}/images', [AdminServiceController::class, 'storeImage'])->name('services.images.store');
         Route::put('services/{service}/images', [AdminServiceController::class, 'updateImages'])->name('services.images.update');
+        Route::post('services/{service}/images/{serviceImage}/replace', [AdminServiceController::class, 'replaceImage'])->name('services.images.replace');
         Route::delete('services/{service}/images/{serviceImage}', [AdminServiceController::class, 'destroyImage'])->name('services.images.destroy');
         Route::resource('services', AdminServiceController::class)->except(['show']);
 
