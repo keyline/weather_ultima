@@ -31,7 +31,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductEnquiryController;
 use App\Http\Controllers\ServicesPageController;
+use App\Http\Controllers\StorageFileController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('storage/{path}', StorageFileController::class)->where('path', '.+')->name('storage.file');
+Route::get('public/storage/{path}', StorageFileController::class)->where('path', '.+');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('products', [ProductController::class, 'index'])->name('products');

@@ -36,6 +36,10 @@
                                 <label class="admin-label text-xs">Alt text</label>
                                 <input type="text" name="images[{{ $i }}][alt_text]" value="{{ $image->alt_text }}" placeholder="Describe the image" class="admin-input" />
                             </div>
+                            {{-- Submits the separate delete form below (nested forms are invalid HTML). --}}
+                            <button type="submit" form="delete-image-{{ $image->id }}" class="admin-btn admin-btn--danger admin-btn--sm ml-auto" aria-label="Remove this image" title="Remove this image">
+                                <i class="fa-solid fa-trash-can"></i> Remove
+                            </button>
                         </div>
                     @endforeach
                     <div class="flex items-center justify-between gap-3">
@@ -43,15 +47,12 @@
                     </div>
                 </form>
 
-                <div class="flex flex-wrap gap-2">
-                    @foreach ($service->images as $image)
-                        <form method="POST" action="{{ route('admin.services.images.destroy', [$service, $image]) }}" onsubmit="return confirm('Remove this image?');">
-                            @csrf
-                            @method ('DELETE')
-                            <button class="admin-btn admin-btn--danger admin-btn--sm"><i class="fa-solid fa-trash-can"></i> Remove #{{ $image->display_order }}</button>
-                        </form>
-                    @endforeach
-                </div>
+                @foreach ($service->images as $image)
+                    <form id="delete-image-{{ $image->id }}" method="POST" action="{{ route('admin.services.images.destroy', [$service, $image]) }}" onsubmit="return confirm('Remove this image?');" class="hidden">
+                        @csrf
+                        @method ('DELETE')
+                    </form>
+                @endforeach
             @endif
 
             <form method="POST" action="{{ route('admin.services.images.store', $service) }}" enctype="multipart/form-data" class="space-y-3 border-t border-slate-100 pt-5">
