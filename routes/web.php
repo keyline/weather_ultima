@@ -129,6 +129,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::get('site', [SiteSettingController::class, 'edit'])->name('site.edit');
             Route::put('site', [SiteSettingController::class, 'update'])->name('site.update');
             Route::get('maintenance', [MaintenanceController::class, 'edit'])->name('maintenance.edit');
+            Route::post('maintenance/migrate', [MaintenanceController::class, 'migrate'])->middleware('throttle:5,1')->name('maintenance.migrate');
             Route::post('maintenance/clear-cache', [MaintenanceController::class, 'clearCache'])->middleware('throttle:10,1')->name('maintenance.clear-cache');
         });
 

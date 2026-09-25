@@ -29,6 +29,25 @@ class MaintenanceController extends Controller
         return view('admin.settings.maintenance');
     }
 
+    /**
+     * Apply any database migrations that were uploaded but not yet run. Only
+     * adds new tables/columns — `migrate` never drops or rewrites existing data.
+     */
+    public function migrate(): RedirectResponse
+    {
+        try {
+            Artisan::call('migrate', ['--force' => true]);
+        } catch (Throwable $exception) {
+            report($exception);
+
+            return back()->with('maintenance_error', 'Migration failed: '.$exception->getMessage());
+        }
+
+        $output = trim(preg_replace('/\s+/', ' ', strip_tags(Artisan::output())));
+
+        return back()->with('status', 'Database updated. '.$output);
+    }
+
     public function clearCache(): RedirectResponse
     {
         $cleared = [];

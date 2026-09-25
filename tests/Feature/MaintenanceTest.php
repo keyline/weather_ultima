@@ -23,6 +23,21 @@ class MaintenanceTest extends TestCase
             ->assertRedirect(route('admin.login'));
     }
 
+    public function test_non_admins_cannot_run_migrations(): void
+    {
+        $this->actingAs(User::factory()->create(['role' => 'user']))
+            ->post(route('admin.settings.maintenance.migrate'))
+            ->assertRedirect(route('admin.login'));
+    }
+
+    public function test_an_admin_can_run_pending_migrations(): void
+    {
+        $this->actingAs(User::factory()->create(['role' => 'admin']))
+            ->post(route('admin.settings.maintenance.migrate'))
+            ->assertRedirect()
+            ->assertSessionHas('status', fn (string $message): bool => str_starts_with($message, 'Database updated.'));
+    }
+
     public function test_an_admin_can_view_the_maintenance_page(): void
     {
         $this->actingAs(User::factory()->create(['role' => 'admin']))
