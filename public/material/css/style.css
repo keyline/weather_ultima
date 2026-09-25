@@ -919,6 +919,7 @@ body {
 }
 
 .wx-station-map {
+    aspect-ratio: 16 / 10;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 14px 30px -14px rgba(20, 40, 60, 0.3);
@@ -1654,13 +1655,13 @@ body {
 .wx-product-card-img {
     width: calc(100% + 44px);
     margin: 0 -22px 30px;
-    /* aspect-ratio: 1 / 1; */
 }
 
 .wx-product-card-img img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    aspect-ratio: 5 / 4;
+    object-fit: contain;
     display: block;
     border-radius: 0 0 30px 30px;
 }

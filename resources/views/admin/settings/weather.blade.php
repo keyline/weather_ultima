@@ -31,7 +31,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('admin.settings.weather.update') }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.settings.weather.update') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method ('PUT')
 
@@ -70,6 +70,35 @@
                         placeholder="e.g. A4:CF:12:34:56:78"
                     />
                 @endforeach
+            </section>
+
+            <section class="admin-section space-y-4">
+                <h2 class="admin-section-title">Station images</h2>
+                <p class="admin-hint">
+                    The photo shown beside each station&rsquo;s readings on the homepage. JPG, PNG or WEBP up to 4&nbsp;MB.
+                    Leave a field empty to keep the current image; tick &ldquo;Remove&rdquo; to go back to the default.
+                </p>
+                <div class="grid gap-6 sm:grid-cols-2">
+                    @foreach (\App\Models\WeatherSetting::STATION_IMAGES as $stationLabel => $column)
+                        @php $field = \Illuminate\Support\Str::beforeLast($column, '_path'); @endphp
+                        <div>
+                            <span class="admin-label">{{ $stationLabel }} station image</span>
+                            <div class="mt-1.5 overflow-hidden rounded border border-slate-200 bg-slate-50">
+                                <img src="{{ $settings->imageUrlFor($stationLabel) }}" alt="{{ $stationLabel }} station image preview" class="h-32 w-full object-cover" />
+                            </div>
+                            <input type="file" name="{{ $field }}" accept="image/png,image/jpeg,image/webp" class="admin-file mt-2 text-xs @error($field) border-rose-400 @enderror" />
+                            @error ($field)
+                                <p class="admin-error text-xs"><i class="fa-solid fa-circle-exclamation mt-0.5"></i> {{ $message }}</p>
+                            @enderror
+                            @if ($settings->{$column})
+                                <label class="mt-2 flex items-center gap-2 text-xs text-slate-500">
+                                    <input type="checkbox" name="remove_{{ $field }}" value="1" class="h-3.5 w-3.5 rounded border-slate-300 text-rose-600" />
+                                    Remove &amp; use default
+                                </label>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
             </section>
 
             <section class="admin-section space-y-3">

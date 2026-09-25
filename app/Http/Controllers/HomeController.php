@@ -8,6 +8,7 @@ use App\Models\DimensionCard;
 use App\Models\HomeSetting;
 use App\Models\InstagramSetting;
 use App\Models\Testimonial;
+use App\Models\WeatherSetting;
 use App\Services\InstagramFeedService;
 use App\Services\WeatherStationService;
 use Illuminate\View\View;
@@ -25,6 +26,7 @@ class HomeController extends Controller
             'instagramPosts' => $instagramFeed->homepageItems(10),
             'testimonials' => Testimonial::query()->enabled()->ordered()->get(),
             'weatherStations' => $weatherStation->stations(),
+            'weatherStationImages' => WeatherSetting::current()->imageUrls(),
         ]);
     }
 }

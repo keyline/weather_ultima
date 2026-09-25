@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\WeatherSetting;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class WeatherStationSettingsTest extends TestCase
@@ -91,6 +93,43 @@ class WeatherStationSettingsTest extends TestCase
         $this->assertSame('ambient-application-key', $settings->application_key);
         $this->assertSame('ambient-api-key', $settings->api_key);
         $this->assertSame('AA:BB:CC:DD:EE:09', $settings->kolkata_mac);
+    }
+
+    public function test_admin_can_upload_replace_and_remove_a_station_image(): void
+    {
+        Storage::fake('public');
+        $admin = $this->admin();
+
+        $this->actingAs($admin)->put(route('admin.settings.weather.update'), $this->payload([
+            'kolkata_image' => UploadedFile::fake()->image('first.jpg'),
+        ]))->assertSessionHasNoErrors();
+
+        $first = WeatherSetting::current()->kolkata_image_path;
+        Storage::disk('public')->assertExists($first);
+        $this->assertStringContainsString($first, WeatherSetting::current()->imageUrlFor('Kolkata'));
+
+        $this->actingAs($admin)->put(route('admin.settings.weather.update'), $this->payload([
+            'kolkata_image' => UploadedFile::fake()->image('second.jpg'),
+        ]));
+        Storage::disk('public')->assertMissing($first);
+
+        $second = WeatherSetting::current()->kolkata_image_path;
+        $this->actingAs($admin)->put(route('admin.settings.weather.update'), $this->payload([
+            'remove_kolkata_image' => '1',
+        ]));
+
+        Storage::disk('public')->assertMissing($second);
+        $this->assertNull(WeatherSetting::current()->kolkata_image_path);
+        $this->assertStringContainsString('service1.png', WeatherSetting::current()->imageUrlFor('Kolkata'));
+    }
+
+    public function test_station_image_must_be_an_image(): void
+    {
+        $this->actingAs($this->admin())
+            ->put(route('admin.settings.weather.update'), $this->payload([
+                'kolkata_image' => UploadedFile::fake()->create('notes.pdf', 10, 'application/pdf'),
+            ]))
+            ->assertSessionHasErrors('kolkata_image');
     }
 
     public function test_cannot_activate_without_both_keys(): void

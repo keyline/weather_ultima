@@ -170,6 +170,7 @@
                             @include ('partials.weather-station-panel', [
                                 'station' => $stationName,
                                 'reading' => $stationReading,
+                                'imageUrl' => $weatherStationImages[$stationName] ?? null,
                             ])
                         </div>
                     @endforeach

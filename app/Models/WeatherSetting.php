@@ -13,6 +13,10 @@ use Illuminate\Support\Str;
     'deoghar_mac',
     'sundarban_mac',
     'bardhaman_mac',
+    'kolkata_image_path',
+    'deoghar_image_path',
+    'sundarban_image_path',
+    'bardhaman_image_path',
     'is_active',
 ])]
 class WeatherSetting extends Model
@@ -28,6 +32,23 @@ class WeatherSetting extends Model
         'Deoghar' => 'deoghar_mac',
         'Sundarban' => 'sundarban_mac',
         'Bardhaman' => 'bardhaman_mac',
+    ];
+
+    /**
+     * The image shown beside a station's readings when no custom one is uploaded.
+     */
+    public const DEFAULT_STATION_IMAGE = 'material/images/service1.png';
+
+    /**
+     * Weather station tab label => the column holding its uploaded image path.
+     *
+     * @var array<string, string>
+     */
+    public const STATION_IMAGES = [
+        'Kolkata' => 'kolkata_image_path',
+        'Deoghar' => 'deoghar_image_path',
+        'Sundarban' => 'sundarban_image_path',
+        'Bardhaman' => 'bardhaman_image_path',
     ];
 
     /**
@@ -85,6 +106,28 @@ class WeatherSetting extends Model
         $column = self::STATIONS[$station] ?? null;
 
         return $column ? $this->{$column} : null;
+    }
+
+    /**
+     * The public URL of a station's image, falling back to the bundled default.
+     */
+    public function imageUrlFor(string $station): string
+    {
+        $path = ($column = self::STATION_IMAGES[$station] ?? null) ? $this->{$column} : null;
+
+        return $path ? asset('storage/'.$path) : asset(self::DEFAULT_STATION_IMAGE);
+    }
+
+    /**
+     * Image URL for every station tab, keyed by tab label.
+     *
+     * @return array<string, string>
+     */
+    public function imageUrls(): array
+    {
+        return collect(array_keys(self::STATION_IMAGES))
+            ->mapWithKeys(fn (string $station): array => [$station => $this->imageUrlFor($station)])
+            ->all();
     }
 
     public function maskedApplicationKey(): ?string

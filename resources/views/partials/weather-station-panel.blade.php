@@ -17,7 +17,7 @@
 
 @if ($isLive)
     <div class="wx-station-map">
-        <img src="images/service1.png" alt="{{ $station }} weather station map" />
+        <img src="{{ $imageUrl ?? asset('material/images/service1.png') }}" alt="{{ $station }} weather station" />
     </div>
     <div class="wx-station-grid">
         @foreach ($stats as $stat)
