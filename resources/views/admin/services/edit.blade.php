@@ -10,7 +10,7 @@
         ])
 
         {{-- Image gallery --}}
-        <div class="admin-section space-y-5">
+        <div id="images" class="admin-section space-y-5" style="scroll-margin-top: 90px;">
             <div>
                 <h2 class="admin-section-title">Images</h2>
                 <p class="admin-hint">The row of images shown in this service's panel. Reorder with the number field, then save.</p>

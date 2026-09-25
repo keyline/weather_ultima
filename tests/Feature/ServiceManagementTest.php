@@ -176,7 +176,7 @@ class ServiceManagementTest extends TestCase
 
         $this->actingAs($admin)
             ->post(route('admin.services.images.replace', [$service, $image]), ['image' => UploadedFile::fake()->image('new.jpg')])
-            ->assertRedirect(route('admin.services.edit', $service))
+            ->assertRedirect(route('admin.services.edit', $service).'#images')
             ->assertSessionHas('status');
 
         $image->refresh();

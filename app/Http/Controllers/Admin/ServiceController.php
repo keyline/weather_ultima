@@ -114,7 +114,7 @@ class ServiceController extends Controller
             'display_order' => (int) $service->images()->max('display_order') + 1,
         ]);
 
-        return redirect()->route('admin.services.edit', $service)->with('status', 'Image added.');
+        return redirect()->to(route('admin.services.edit', $service).'#images')->with('status', 'Image added.');
     }
 
     public function updateImages(UpdateServiceImagesRequest $request, Service $service): RedirectResponse
@@ -126,7 +126,7 @@ class ServiceController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.services.edit', $service)->with('status', 'Image order and captions saved.');
+        return redirect()->to(route('admin.services.edit', $service).'#images')->with('status', 'Image order and captions saved.');
     }
 
     public function replaceImage(StoreServiceImageRequest $request, Service $service, ServiceImage $serviceImage): RedirectResponse
@@ -137,7 +137,7 @@ class ServiceController extends Controller
         $this->deleteImage($serviceImage->image);
         $serviceImage->update(['image' => $path]);
 
-        return redirect()->route('admin.services.edit', $service)->with('status', 'Image replaced.');
+        return redirect()->to(route('admin.services.edit', $service).'#images')->with('status', 'Image replaced.');
     }
 
     public function destroyImage(Service $service, ServiceImage $serviceImage): RedirectResponse
@@ -147,7 +147,7 @@ class ServiceController extends Controller
         $this->deleteImage($serviceImage->image);
         $serviceImage->delete();
 
-        return redirect()->route('admin.services.edit', $service)->with('status', 'Image removed.');
+        return redirect()->to(route('admin.services.edit', $service).'#images')->with('status', 'Image removed.');
     }
 
     private function deleteImage(?string $path): void
