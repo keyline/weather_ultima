@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateWeatherSettingsRequest;
+use App\Http\Requests\Admin\UpdateWeatherStationImageRequest;
 use App\Models\WeatherSetting;
 use App\Services\WeatherStationService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -19,9 +21,7 @@ class WeatherSettingController extends Controller
 
     public function update(UpdateWeatherSettingsRequest $request, WeatherStationService $weatherStation): RedirectResponse
     {
-        $settings = WeatherSetting::current();
-
-        $data = $request->safe()->except(['application_key', 'api_key', 'is_active', ...$this->imageFields()]);
+        $data = $request->safe()->except(['application_key', 'api_key', 'is_active']);
         $data['is_active'] = $request->boolean('is_active');
 
         if (filled($request->input('application_key'))) {
@@ -32,22 +32,33 @@ class WeatherSettingController extends Controller
             $data['api_key'] = $request->string('api_key')->toString();
         }
 
-        foreach (WeatherSetting::STATION_IMAGES as $station => $column) {
-            $field = str($column)->beforeLast('_path')->toString();
-
-            if ($request->hasFile($field)) {
-                $this->deleteStoredFile($settings->{$column});
-                $data[$column] = $request->file($field)->store('weather-stations', 'public');
-            } elseif ($request->boolean('remove_'.$field)) {
-                $this->deleteStoredFile($settings->{$column});
-                $data[$column] = null;
-            }
-        }
-
-        $settings->update($data);
+        WeatherSetting::current()->update($data);
         $weatherStation->flush();
 
         return back()->with('status', 'Weather station configuration saved.');
+    }
+
+    public function updateImage(UpdateWeatherStationImageRequest $request, string $station): RedirectResponse
+    {
+        [$label, $column] = $this->stationImageColumn($station);
+        $settings = WeatherSetting::current();
+
+        $path = $request->file('image')->store('weather-stations', 'public');
+        $this->deleteStoredFile($settings->{$column});
+        $settings->update([$column => $path]);
+
+        return back()->with('status', "{$label} station image saved.");
+    }
+
+    public function destroyImage(Request $request, string $station): RedirectResponse
+    {
+        [$label, $column] = $this->stationImageColumn($station);
+        $settings = WeatherSetting::current();
+
+        $this->deleteStoredFile($settings->{$column});
+        $settings->update([$column => null]);
+
+        return back()->with('status', "{$label} station image removed — the default is shown again.");
     }
 
     public function test(WeatherStationService $weatherStation): RedirectResponse
@@ -63,17 +74,18 @@ class WeatherSettingController extends Controller
     }
 
     /**
-     * Upload / remove form fields that are not columns on the settings row.
+     * Resolve a URL slug (e.g. "kolkata") to its station label and image column.
      *
-     * @return list<string>
+     * @return array{0: string, 1: string}
      */
-    private function imageFields(): array
+    private function stationImageColumn(string $station): array
     {
-        return collect(WeatherSetting::STATION_IMAGES)
-            ->map(fn (string $column): string => str($column)->beforeLast('_path')->toString())
-            ->flatMap(fn (string $field): array => [$field, 'remove_'.$field])
-            ->values()
-            ->all();
+        $label = collect(array_keys(WeatherSetting::STATION_IMAGES))
+            ->first(fn (string $label): bool => strtolower($label) === strtolower($station));
+
+        abort_if($label === null, 404);
+
+        return [$label, WeatherSetting::STATION_IMAGES[$label]];
     }
 
     private function deleteStoredFile(?string $path): void

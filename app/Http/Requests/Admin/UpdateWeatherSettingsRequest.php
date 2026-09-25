@@ -18,17 +18,7 @@ class UpdateWeatherSettingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        $image = ['nullable', 'file', 'mimes:jpeg,jpg,png,webp', 'max:4096'];
-
         return [
-            'kolkata_image' => $image,
-            'deoghar_image' => $image,
-            'sundarban_image' => $image,
-            'bardhaman_image' => $image,
-            'remove_kolkata_image' => ['nullable', 'boolean'],
-            'remove_deoghar_image' => ['nullable', 'boolean'],
-            'remove_sundarban_image' => ['nullable', 'boolean'],
-            'remove_bardhaman_image' => ['nullable', 'boolean'],
             'application_key' => ['nullable', 'string', 'max:255'],
             'api_key' => ['nullable', 'string', 'max:255'],
             'kolkata_mac' => ['nullable', 'string', 'max:64'],
@@ -51,10 +41,6 @@ class UpdateWeatherSettingsRequest extends FormRequest
             'deoghar_mac' => 'Deoghar device MAC address',
             'sundarban_mac' => 'Sundarban device MAC address',
             'bardhaman_mac' => 'Bardhaman device MAC address',
-            'kolkata_image' => 'Kolkata station image',
-            'deoghar_image' => 'Deoghar station image',
-            'sundarban_image' => 'Sundarban station image',
-            'bardhaman_image' => 'Bardhaman station image',
         ];
     }
 

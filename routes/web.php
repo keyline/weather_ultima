@@ -121,6 +121,8 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::get('weather', [WeatherSettingController::class, 'edit'])->name('weather.edit');
             Route::put('weather', [WeatherSettingController::class, 'update'])->name('weather.update');
             Route::post('weather/test', [WeatherSettingController::class, 'test'])->middleware('throttle:10,1')->name('weather.test');
+            Route::post('weather/images/{station}', [WeatherSettingController::class, 'updateImage'])->name('weather.images.update');
+            Route::delete('weather/images/{station}', [WeatherSettingController::class, 'destroyImage'])->name('weather.images.destroy');
             Route::get('instagram', [InstagramSettingController::class, 'edit'])->name('instagram.edit');
             Route::put('instagram', [InstagramSettingController::class, 'update'])->name('instagram.update');
             Route::post('instagram/test', [InstagramSettingController::class, 'test'])->middleware('throttle:10,1')->name('instagram.test');

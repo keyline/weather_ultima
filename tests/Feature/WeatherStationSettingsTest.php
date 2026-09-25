@@ -95,28 +95,26 @@ class WeatherStationSettingsTest extends TestCase
         $this->assertSame('AA:BB:CC:DD:EE:09', $settings->kolkata_mac);
     }
 
-    public function test_admin_can_upload_replace_and_remove_a_station_image(): void
+    public function test_admin_can_upload_replace_and_remove_a_single_station_image(): void
     {
         Storage::fake('public');
         $admin = $this->admin();
 
-        $this->actingAs($admin)->put(route('admin.settings.weather.update'), $this->payload([
-            'kolkata_image' => UploadedFile::fake()->image('first.jpg'),
-        ]))->assertSessionHasNoErrors();
+        $this->actingAs($admin)
+            ->post(route('admin.settings.weather.images.update', 'kolkata'), ['image' => UploadedFile::fake()->image('first.jpg')])
+            ->assertSessionHasNoErrors()
+            ->assertSessionHas('status');
 
         $first = WeatherSetting::current()->kolkata_image_path;
         Storage::disk('public')->assertExists($first);
-        $this->assertStringContainsString($first, WeatherSetting::current()->imageUrlFor('Kolkata'));
+        $this->assertNull(WeatherSetting::current()->deoghar_image_path);
 
-        $this->actingAs($admin)->put(route('admin.settings.weather.update'), $this->payload([
-            'kolkata_image' => UploadedFile::fake()->image('second.jpg'),
-        ]));
+        $this->actingAs($admin)
+            ->post(route('admin.settings.weather.images.update', 'kolkata'), ['image' => UploadedFile::fake()->image('second.jpg')]);
         Storage::disk('public')->assertMissing($first);
 
         $second = WeatherSetting::current()->kolkata_image_path;
-        $this->actingAs($admin)->put(route('admin.settings.weather.update'), $this->payload([
-            'remove_kolkata_image' => '1',
-        ]));
+        $this->actingAs($admin)->delete(route('admin.settings.weather.images.destroy', 'kolkata'))->assertSessionHas('status');
 
         Storage::disk('public')->assertMissing($second);
         $this->assertNull(WeatherSetting::current()->kolkata_image_path);
@@ -126,10 +124,22 @@ class WeatherStationSettingsTest extends TestCase
     public function test_station_image_must_be_an_image(): void
     {
         $this->actingAs($this->admin())
-            ->put(route('admin.settings.weather.update'), $this->payload([
-                'kolkata_image' => UploadedFile::fake()->create('notes.pdf', 10, 'application/pdf'),
-            ]))
-            ->assertSessionHasErrors('kolkata_image');
+            ->post(route('admin.settings.weather.images.update', 'kolkata'), [
+                'image' => UploadedFile::fake()->create('notes.pdf', 10, 'application/pdf'),
+            ])
+            ->assertSessionHasErrors('image');
+    }
+
+    public function test_unknown_station_and_non_admins_are_rejected(): void
+    {
+        $this->actingAs($this->admin())
+            ->post(route('admin.settings.weather.images.update', 'atlantis'), ['image' => UploadedFile::fake()->image('x.jpg')])
+            ->assertNotFound();
+
+        $user = User::factory()->create(['role' => 'user']);
+        $this->actingAs($user)
+            ->post(route('admin.settings.weather.images.update', 'kolkata'), ['image' => UploadedFile::fake()->image('x.jpg')])
+            ->assertRedirect(route('admin.login'));
     }
 
     public function test_cannot_activate_without_both_keys(): void
