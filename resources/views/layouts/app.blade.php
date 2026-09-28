@@ -167,7 +167,16 @@
                 },
                 smoothWheel: true,
                 wheelMultiplier: 1,
-                touchMultiplier: 1.5
+                touchMultiplier: 1.5,
+                // Without this, Lenis hijacks the wheel event for the whole
+                // page even when the cursor is over a nested scrollable area
+                // — a Bootstrap modal, or the Instagram embed widget's own
+                // expanded-post/comments popup in the "Follow Us on
+                // Instagram" section — so scrolling inside it does nothing.
+                // This makes Lenis detect any element under the cursor that
+                // can scroll on its own and hand the wheel event back to the
+                // browser natively for it, instead of the page underneath.
+                allowNestedScroll: true
             });
 
             function raf(time) {
