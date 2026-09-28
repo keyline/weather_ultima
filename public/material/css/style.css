@@ -1211,10 +1211,14 @@ body {
 }
 
 /* ---------- Preloader (site-wide) ---------- */
-/* Recreation of the video splash screen from the previous weatherultima.com
-   build: a blue-gradient overlay, slow diagonally-drifting weather icons in
-   the background, and a looping branded video centered in a rounded card
-   with a pulsing "Loading Weather Data..." pill underneath it. */
+/* Animated weather-scene splash screen: drifting background clouds + rain,
+   a glow, floating particles, a sun/cloud/rain illustration, brand wordmark
+   and a simulated progress readout. Class names are "wx-preloader-" prefixed
+   (rather than the generic ".progress-bar" etc. of the original design) so
+   nothing collides with Bootstrap's own .progress-bar component, which is
+   loaded on every page. The scroll-lock also uses the site's existing
+   body.wx-preloading toggle instead of a permanent html/body overflow:hidden,
+   since the JS removes that class once the loader hides. */
 body.wx-preloading {
     overflow: hidden;
 }
@@ -1227,8 +1231,9 @@ body.wx-preloading {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: linear-gradient(to right, #60a5fa, #2563eb);
-    transition: opacity 0.5s var(--ease-apple), visibility 0.5s var(--ease-apple);
+    background: linear-gradient(135deg, #72b9ff 0%, #347fe8 42%, #174dbb 72%, #092b73 100%);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    transition: opacity 1s ease, visibility 1s ease;
 }
 
 .wx-preloader.is-hidden {
@@ -1237,165 +1242,460 @@ body.wx-preloading {
     pointer-events: none;
 }
 
+/* Background glow */
+.wx-preloader-glow {
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120, 220, 255, 0.28), rgba(50, 130, 240, 0.08) 42%, transparent 72%);
+    filter: blur(20px);
+    animation: wxPreloaderGlowMove 5s ease-in-out infinite alternate;
+}
+
+@keyframes wxPreloaderGlowMove {
+    0% {
+        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 0.45;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 0.9;
+    }
+}
+
+/* Background weather: drifting clouds + rain */
+.wx-preloader-bg-weather {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.wx-preloader-bg-cloud {
+    position: absolute;
+    width: 300px;
+    height: 85px;
+    border-radius: 80px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(180, 215, 250, 0.08));
+    filter: blur(1px);
+    opacity: 0.5;
+    animation: wxPreloaderMoveCloud linear infinite;
+}
+
+.wx-preloader-bg-cloud::before {
+    content: '';
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    left: 35px;
+    top: -70px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(180, 215, 250, 0.08));
+}
+
+.wx-preloader-bg-cloud::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 145px;
+    top: -52px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(180, 215, 250, 0.08));
+}
+
+.wx-preloader-bg-cloud-1 { top: 8%; left: -350px; transform: scale(1.2); animation-duration: 28s; opacity: 0.35; }
+.wx-preloader-bg-cloud-2 { top: 27%; left: -450px; transform: scale(0.75); animation-duration: 35s; animation-delay: -10s; opacity: 0.25; }
+.wx-preloader-bg-cloud-3 { top: 48%; left: -400px; transform: scale(1.5); animation-duration: 45s; animation-delay: -20s; opacity: 0.18; }
+.wx-preloader-bg-cloud-4 { top: 68%; left: -350px; transform: scale(0.85); animation-duration: 32s; animation-delay: -8s; opacity: 0.25; }
+.wx-preloader-bg-cloud-5 { top: 84%; left: -500px; transform: scale(1.1); animation-duration: 40s; animation-delay: -18s; opacity: 0.2; }
+
+@keyframes wxPreloaderMoveCloud {
+    0% {
+        margin-left: -400px;
+    }
+    100% {
+        margin-left: calc(100vw + 500px);
+    }
+}
+
+.wx-preloader-bg-rain {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.42;
+    z-index: 2;
+}
+
+.wx-preloader-bg-rain i {
+    position: absolute;
+    top: -100px;
+    width: 2px;
+    height: 65px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, transparent, rgba(210, 240, 255, 0.9));
+    transform: rotate(16deg);
+    animation: wxPreloaderBgRain linear infinite;
+}
+
+.wx-preloader-bg-rain i:nth-child(1) { left: 2%; animation-duration: 0.8s; }
+.wx-preloader-bg-rain i:nth-child(2) { left: 5%; animation-duration: 1.1s; animation-delay: -0.3s; }
+.wx-preloader-bg-rain i:nth-child(3) { left: 8%; animation-duration: 0.7s; animation-delay: -0.5s; }
+.wx-preloader-bg-rain i:nth-child(4) { left: 11%; animation-duration: 1s; }
+.wx-preloader-bg-rain i:nth-child(5) { left: 14%; animation-duration: 0.75s; animation-delay: -0.2s; }
+.wx-preloader-bg-rain i:nth-child(6) { left: 17%; animation-duration: 1.2s; animation-delay: -0.7s; }
+.wx-preloader-bg-rain i:nth-child(7) { left: 20%; animation-duration: 0.85s; }
+.wx-preloader-bg-rain i:nth-child(8) { left: 23%; animation-duration: 1.05s; animation-delay: -0.4s; }
+.wx-preloader-bg-rain i:nth-child(9) { left: 26%; animation-duration: 0.7s; animation-delay: -0.6s; }
+.wx-preloader-bg-rain i:nth-child(10) { left: 29%; animation-duration: 0.95s; }
+.wx-preloader-bg-rain i:nth-child(11) { left: 32%; animation-duration: 0.8s; animation-delay: -0.25s; }
+.wx-preloader-bg-rain i:nth-child(12) { left: 35%; animation-duration: 1.15s; }
+.wx-preloader-bg-rain i:nth-child(13) { left: 38%; animation-duration: 0.72s; animation-delay: -0.45s; }
+.wx-preloader-bg-rain i:nth-child(14) { left: 41%; animation-duration: 1s; }
+.wx-preloader-bg-rain i:nth-child(15) { left: 44%; animation-duration: 0.82s; animation-delay: -0.3s; }
+.wx-preloader-bg-rain i:nth-child(16) { left: 47%; animation-duration: 1.1s; }
+.wx-preloader-bg-rain i:nth-child(17) { left: 50%; animation-duration: 0.75s; animation-delay: -0.5s; }
+.wx-preloader-bg-rain i:nth-child(18) { left: 53%; animation-duration: 0.9s; }
+.wx-preloader-bg-rain i:nth-child(19) { left: 56%; animation-duration: 1.2s; animation-delay: -0.2s; }
+.wx-preloader-bg-rain i:nth-child(20) { left: 59%; animation-duration: 0.7s; }
+.wx-preloader-bg-rain i:nth-child(21) { left: 62%; animation-duration: 0.95s; animation-delay: -0.4s; }
+.wx-preloader-bg-rain i:nth-child(22) { left: 65%; animation-duration: 0.8s; }
+.wx-preloader-bg-rain i:nth-child(23) { left: 68%; animation-duration: 1.15s; animation-delay: -0.6s; }
+.wx-preloader-bg-rain i:nth-child(24) { left: 71%; animation-duration: 0.75s; }
+.wx-preloader-bg-rain i:nth-child(25) { left: 74%; animation-duration: 1s; animation-delay: -0.35s; }
+.wx-preloader-bg-rain i:nth-child(26) { left: 77%; animation-duration: 0.85s; }
+.wx-preloader-bg-rain i:nth-child(27) { left: 80%; animation-duration: 1.2s; animation-delay: -0.55s; }
+.wx-preloader-bg-rain i:nth-child(28) { left: 83%; animation-duration: 0.7s; }
+.wx-preloader-bg-rain i:nth-child(29) { left: 86%; animation-duration: 0.95s; animation-delay: -0.25s; }
+.wx-preloader-bg-rain i:nth-child(30) { left: 89%; animation-duration: 0.8s; }
+.wx-preloader-bg-rain i:nth-child(31) { left: 92%; animation-duration: 1.1s; animation-delay: -0.45s; }
+.wx-preloader-bg-rain i:nth-child(32) { left: 95%; animation-duration: 0.75s; }
+.wx-preloader-bg-rain i:nth-child(33) { left: 98%; animation-duration: 1s; }
+
+@keyframes wxPreloaderBgRain {
+    0% {
+        transform: translateY(-100px) translateX(0) rotate(16deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    80% {
+        opacity: 0.45;
+    }
+    100% {
+        transform: translateY(115vh) translateX(-100px) rotate(16deg);
+        opacity: 0;
+    }
+}
+
+/* Floating particles */
 .wx-preloader-particles {
     position: absolute;
     inset: 0;
     overflow: hidden;
+    z-index: 3;
     pointer-events: none;
 }
 
 .wx-preloader-particle {
     position: absolute;
-    color: #fff;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-.wx-preloader-particle-1 {
-    top: 10%;
-    left: -10%;
-    font-size: 60px;
-    opacity: 0.2;
-    animation-name: wxPreloaderDrift1;
-    animation-duration: 20s;
-}
-
-.wx-preloader-particle-2 {
-    top: 30%;
-    left: 110%;
-    font-size: 80px;
-    color: #93c5fd;
-    opacity: 0.1;
-    animation-name: wxPreloaderDrift2;
-    animation-duration: 25s;
-    animation-delay: 2s;
-}
-
-.wx-preloader-particle-3 {
-    top: -10%;
-    left: 50%;
-    font-size: 70px;
-    color: #fef08a;
-    opacity: 0.2;
-    animation-name: wxPreloaderDrift3;
-    animation-duration: 15s;
-    animation-delay: 1s;
-}
-
-.wx-preloader-particle-4 {
-    top: 90%;
-    left: 0%;
-    font-size: 50px;
-    opacity: 0.15;
-    animation-name: wxPreloaderDrift4;
-    animation-duration: 18s;
-    animation-delay: 3s;
-}
-
-@keyframes wxPreloaderDrift1 {
-    to {
-        left: 110%;
-        top: 40%;
-    }
-}
-
-@keyframes wxPreloaderDrift2 {
-    to {
-        left: -10%;
-        top: 60%;
-    }
-}
-
-@keyframes wxPreloaderDrift3 {
-    to {
-        left: 70%;
-        top: 110%;
-    }
-}
-
-@keyframes wxPreloaderDrift4 {
-    to {
-        left: 100%;
-        top: 10%;
-    }
-}
-
-.wx-preloader-stage {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 896px;
-    aspect-ratio: 16 / 9;
-    padding: 0 16px;
-}
-
-.wx-preloader-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.4);
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.wx-preloader-badge-wrap {
-    position: absolute;
-    left: 16px;
-    right: 16px;
-    bottom: 24px;
-    text-align: center;
-    animation: wxPreloaderBadgeIn 0.5s var(--ease-apple) 0.4s both;
-}
-
-.wx-preloader-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 22px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 999px;
-    box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.35);
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1e40af;
-}
-
-.wx-preloader-dot {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
-    background: #3b82f6;
-    animation: wxPreloaderPulseDot 1.5s ease-in-out infinite;
+    background: rgba(255, 255, 255, 0.7);
+    animation: wxPreloaderFloatParticle linear infinite;
 }
 
-@keyframes wxPreloaderBadgeIn {
+.wx-preloader-particle:nth-child(1) { left: 8%; top: 80%; animation-duration: 7s; }
+.wx-preloader-particle:nth-child(2) { left: 18%; top: 70%; animation-duration: 9s; }
+.wx-preloader-particle:nth-child(3) { left: 30%; top: 90%; animation-duration: 6s; }
+.wx-preloader-particle:nth-child(4) { left: 42%; top: 75%; animation-duration: 8s; }
+.wx-preloader-particle:nth-child(5) { left: 55%; top: 85%; animation-duration: 10s; }
+.wx-preloader-particle:nth-child(6) { left: 68%; top: 72%; animation-duration: 7s; }
+.wx-preloader-particle:nth-child(7) { left: 80%; top: 88%; animation-duration: 9s; }
+.wx-preloader-particle:nth-child(8) { left: 92%; top: 75%; animation-duration: 6s; }
+
+@keyframes wxPreloaderFloatParticle {
     from {
+        transform: translateY(80px) scale(0.4);
         opacity: 0;
-        transform: translateY(20px);
     }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.7;
+    }
+    to {
+        transform: translateY(-100vh) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Main loader content */
+.wx-preloader-content {
+    position: relative;
+    z-index: 20;
+    width: 420px;
+    max-width: 90vw;
+    text-align: center;
+    color: #fff;
+}
+
+.wx-preloader-scene {
+    position: relative;
+    width: 250px;
+    height: 190px;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(25px) scale(0.85);
+    animation: wxPreloaderSceneIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+@keyframes wxPreloaderSceneIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.wx-preloader-sun {
+    position: absolute;
+    width: 92px;
+    height: 92px;
+    top: 5px;
+    right: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fffbd0, #ffe45c 42%, #ffc91d 100%);
+    box-shadow: 0 0 30px rgba(255, 220, 55, 0.8), 0 0 75px rgba(255, 210, 35, 0.35);
+    animation: wxPreloaderSunPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes wxPreloaderSunPulse {
+    0%,
+    100% {
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+.wx-preloader-sun-rays {
+    position: absolute;
+    inset: -22px;
+    animation: wxPreloaderRaysRotate 12s linear infinite;
+}
+
+.wx-preloader-sun-rays span {
+    position: absolute;
+    width: 5px;
+    height: 18px;
+    border-radius: 5px;
+    background: rgba(255, 231, 92, 0.9);
+    left: 50%;
+    top: 0;
+    transform-origin: 50% 68px;
+}
+
+.wx-preloader-sun-rays span:nth-child(1) { transform: rotate(0deg); }
+.wx-preloader-sun-rays span:nth-child(2) { transform: rotate(45deg); }
+.wx-preloader-sun-rays span:nth-child(3) { transform: rotate(90deg); }
+.wx-preloader-sun-rays span:nth-child(4) { transform: rotate(135deg); }
+.wx-preloader-sun-rays span:nth-child(5) { transform: rotate(180deg); }
+.wx-preloader-sun-rays span:nth-child(6) { transform: rotate(225deg); }
+.wx-preloader-sun-rays span:nth-child(7) { transform: rotate(270deg); }
+.wx-preloader-sun-rays span:nth-child(8) { transform: rotate(315deg); }
+
+@keyframes wxPreloaderRaysRotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.wx-preloader-cloud {
+    position: absolute;
+    left: 10px;
+    bottom: 15px;
+    width: 190px;
+    height: 75px;
+    border-radius: 50px;
+    background: linear-gradient(180deg, #ffffff, #d9ecff);
+    box-shadow: 0 18px 30px rgba(0, 35, 100, 0.25);
+    animation: wxPreloaderCloudFloat 3s ease-in-out infinite;
+}
+
+.wx-preloader-cloud::before {
+    content: '';
+    position: absolute;
+    width: 95px;
+    height: 95px;
+    left: 25px;
+    top: -48px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #ffffff, #d9ecff);
+}
+
+.wx-preloader-cloud::after {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 92px;
+    top: -32px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #ffffff, #d9ecff);
+}
+
+@keyframes wxPreloaderCloudFloat {
+    0%,
+    100% {
+        transform: translateX(-5px) translateY(0);
+    }
+    50% {
+        transform: translateX(5px) translateY(-5px);
+    }
+}
+
+.wx-preloader-rain {
+    position: absolute;
+    left: 45px;
+    bottom: -5px;
+    width: 120px;
+    height: 65px;
+    overflow: hidden;
+}
+
+.wx-preloader-rain span {
+    position: absolute;
+    top: -15px;
+    width: 3px;
+    height: 18px;
+    border-radius: 5px;
+    background: rgba(112, 215, 255, 0.9);
+    transform: rotate(18deg);
+    animation: wxPreloaderRainDrop 1s linear infinite;
+}
+
+.wx-preloader-rain span:nth-child(1) { left: 5px; animation-delay: 0.1s; }
+.wx-preloader-rain span:nth-child(2) { left: 30px; animation-delay: 0.35s; }
+.wx-preloader-rain span:nth-child(3) { left: 55px; animation-delay: 0.2s; }
+.wx-preloader-rain span:nth-child(4) { left: 80px; animation-delay: 0.55s; }
+.wx-preloader-rain span:nth-child(5) { left: 105px; animation-delay: 0.75s; }
+
+@keyframes wxPreloaderRainDrop {
+    from {
+        transform: translateY(-20px) rotate(18deg);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    to {
+        transform: translateY(75px) rotate(18deg);
+        opacity: 0;
+    }
+}
+
+.wx-preloader-brand {
+    margin-top: 10px;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: wxPreloaderBrandIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+}
+
+.wx-preloader-brand span {
+    color: #7fe7ff;
+}
+
+@keyframes wxPreloaderBrandIn {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes wxPreloaderPulseDot {
-    0%,
-    100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
+.wx-preloader-tagline {
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    opacity: 0;
+    animation: wxPreloaderFadeUp 1s ease 1s forwards;
+}
+
+@keyframes wxPreloaderFadeUp {
+    to {
+        opacity: 1;
     }
 }
 
-@media (max-width: 575px) {
-    .wx-preloader-badge {
-        font-size: 0.85rem;
-        padding: 8px 16px;
+.wx-preloader-progress-area {
+    width: 270px;
+    max-width: 80vw;
+    margin: 32px auto 0;
+    opacity: 0;
+    animation: wxPreloaderFadeUp 0.8s ease 1.15s forwards;
+}
+
+.wx-preloader-progress-track {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.wx-preloader-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #55dfff, #ffffff, #55dfff);
+    box-shadow: 0 0 15px rgba(80, 220, 255, 0.9);
+    transition: width 0.1s linear;
+}
+
+.wx-preloader-status {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 11px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.65);
+    text-transform: uppercase;
+}
+
+.wx-preloader-percent {
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .wx-preloader-content {
+        width: 90%;
+    }
+    .wx-preloader-scene {
+        transform: translateY(25px) scale(0.78);
+    }
+    .wx-preloader-brand {
+        font-size: 21px;
+        letter-spacing: 5px;
+    }
+    .wx-preloader-progress-area {
+        width: 220px;
+    }
+    .wx-preloader-bg-cloud {
+        transform: scale(0.7);
     }
 }
 
@@ -1403,10 +1703,21 @@ body.wx-preloading {
     .wx-preloader {
         transition: none;
     }
+    .wx-preloader-glow,
+    .wx-preloader-bg-cloud,
+    .wx-preloader-bg-rain i,
     .wx-preloader-particle,
-    .wx-preloader-dot,
-    .wx-preloader-badge-wrap {
+    .wx-preloader-scene,
+    .wx-preloader-sun,
+    .wx-preloader-sun-rays,
+    .wx-preloader-cloud,
+    .wx-preloader-rain span,
+    .wx-preloader-brand,
+    .wx-preloader-tagline,
+    .wx-preloader-progress-area {
         animation: none;
+        opacity: 1;
+        transform: none;
     }
 }
 
