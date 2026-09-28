@@ -1210,6 +1210,80 @@ body {
     }
 }
 
+/* ---------- Preloader (site-wide) ---------- */
+body.wx-preloading {
+    overflow: hidden;
+}
+
+.wx-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    transition: opacity 0.5s var(--ease-apple), visibility 0.5s var(--ease-apple);
+}
+
+.wx-preloader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.wx-preloader-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+}
+
+.wx-preloader-logo {
+    width: 54px;
+    height: auto;
+    animation: wxPreloaderPulse 1.4s ease-in-out infinite;
+}
+
+.wx-preloader-ring {
+    position: absolute;
+    inset: 0;
+    border: 3px solid rgba(24, 74, 151, 0.15);
+    border-top-color: var(--wx-accent-1, #184a97);
+    border-radius: 50%;
+    animation: wxPreloaderSpin 0.9s linear infinite;
+}
+
+@keyframes wxPreloaderSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes wxPreloaderPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.88);
+        opacity: 0.75;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wx-preloader {
+        transition: none;
+    }
+    .wx-preloader-logo,
+    .wx-preloader-ring {
+        animation: none;
+    }
+}
+
 /* ---------- Core values ---------- */
 .wx-values-section {
     padding: 80px 0;

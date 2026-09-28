@@ -2,7 +2,47 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include ('layouts.head')
 
-<body>
+<body class="wx-preloading">
+    <div id="wxPreloader" class="wx-preloader" aria-hidden="true">
+        <div class="wx-preloader-inner">
+            <img
+                src="{{ $siteSettings->header_logo_url }}"
+                alt="{{ $siteSettings->display_name }}"
+                class="wx-preloader-logo"
+            />
+            <span class="wx-preloader-ring"></span>
+        </div>
+    </div>
+    <script>
+        // Runs immediately, independent of jQuery/main.js/WOW — so the
+        // preloader still clears itself even if one of those fails to load.
+        // Waits for the real "load" event (every asset, not just the DOM) and
+        // enforces a small minimum-visible time so it never looks like a
+        // flicker on a fast connection.
+        (function () {
+            var preloader = document.getElementById('wxPreloader');
+            if (!preloader) {
+                return;
+            }
+            var minVisibleUntil = Date.now() + 400;
+            function hidePreloader() {
+                var wait = Math.max(0, minVisibleUntil - Date.now());
+                setTimeout(function () {
+                    preloader.classList.add('is-hidden');
+                    document.body.classList.remove('wx-preloading');
+                    setTimeout(function () {
+                        preloader.remove();
+                    }, 600);
+                }, wait);
+            }
+            if (document.readyState === 'complete') {
+                hidePreloader();
+            } else {
+                window.addEventListener('load', hidePreloader);
+            }
+        })();
+    </script>
+
     @include ('layouts.header')
 
     <main>
