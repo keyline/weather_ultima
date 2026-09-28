@@ -4,13 +4,22 @@
 
 <body class="wx-preloading">
     <div id="wxPreloader" class="wx-preloader" aria-hidden="true">
-        <div class="wx-preloader-inner">
-            <img
-                src="{{ $siteSettings->header_logo_url }}"
-                alt="{{ $siteSettings->display_name }}"
-                class="wx-preloader-logo"
-            />
-            <span class="wx-preloader-ring"></span>
+        <div class="wx-preloader-particles" aria-hidden="true">
+            <span class="wx-preloader-particle wx-preloader-particle-1"><i class="fa-solid fa-cloud"></i></span>
+            <span class="wx-preloader-particle wx-preloader-particle-2"><i class="fa-solid fa-cloud-rain"></i></span>
+            <span class="wx-preloader-particle wx-preloader-particle-3"><i class="fa-solid fa-sun"></i></span>
+            <span class="wx-preloader-particle wx-preloader-particle-4"><i class="fa-solid fa-wind"></i></span>
+        </div>
+        <div class="wx-preloader-stage">
+            <video class="wx-preloader-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+                <source src="{{ asset('material/videos/weather-loading.mp4') }}" type="video/mp4" />
+            </video>
+            <div class="wx-preloader-badge-wrap">
+                <div class="wx-preloader-badge">
+                    <span class="wx-preloader-dot"></span>
+                    <span>Loading Weather Data&hellip;</span>
+                </div>
+            </div>
         </div>
     </div>
     <script>
