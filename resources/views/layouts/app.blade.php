@@ -93,7 +93,7 @@
             ];
 
             var progress = 0;
-            var duration = 1200;
+            var duration = 1000;
             var interval = 20;
             var increment = 100 / (duration / interval);
 
