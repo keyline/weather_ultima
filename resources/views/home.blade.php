@@ -89,15 +89,15 @@
                     'With his experience in weather analysis and teaching Geography, Mr. Goenka continues to champion a more informed approach to understanding our atmosphere, climate and the forces that shape our everyday lives.',
                 ];
             @endphp
-            <div class="wx-founder-card reveal" data-reveal>
-                <div class="wx-founder-photo">
+            <div class="wx-founder-card">
+                <div class="wx-founder-photo reveal reveal-left" data-reveal>
                     <img src="{{ $home->founder_image_url ?? asset('material/images/owner_img.png') }}" alt="{{ $founderName }}" />
                     <p class="wx-founder-name">{{ $founderName }}</p>
                     <p class="wx-founder-role">{{ $founderRole }}</p>
                 </div>
                 <div class="wx-founder-divider" aria-hidden="true"></div>
-                <div class="wx-founder-content">
-                    <span class="wx-founder-eyebrow">About the Founder 2</span>
+                <div class="wx-founder-content reveal reveal-right" data-reveal data-reveal-delay="1">
+                    <span class="wx-founder-eyebrow">About the Founder</span>
                     <p>{{ $founderIntro }}</p>
                     @foreach ($founderParagraphs as $paragraph)
                         <p>{{ $paragraph }}</p>
@@ -182,20 +182,20 @@
     <!-- STATS BANNER -->
     <section class="wx-stats-section" id="stats">
         <div class="container">
-            <div class="wx-stats-banner reveal" data-reveal>
-                <div class="wx-stat">
+            <div class="wx-stats-banner">
+                <div class="wx-stat reveal reveal-zoom" data-reveal>
                     <p class="wx-stat-num"><span class="count-number" data-count="10">0</span>K+</p>
                     <p class="wx-stat-label">Weather-Smart Clients</p>
                 </div>
-                <div class="wx-stat">
+                <div class="wx-stat reveal reveal-zoom" data-reveal data-reveal-delay="1">
                     <p class="wx-stat-num"><span class="count-number" data-count="14">0</span>+</p>
                     <p class="wx-stat-label">Milestones &amp; Recognitions</p>
                 </div>
-                <div class="wx-stat">
+                <div class="wx-stat reveal reveal-zoom" data-reveal data-reveal-delay="2">
                     <p class="wx-stat-num"><span class="count-number" data-count="5">0</span>+</p>
                     <p class="wx-stat-label">Stations Reading the Sky 24/7</p>
                 </div>
-                <div class="wx-stat">
+                <div class="wx-stat reveal reveal-zoom" data-reveal data-reveal-delay="3">
                     <p class="wx-stat-num"><span class="count-number" data-count="20">0</span>+</p>
                     <p class="wx-stat-label">Years of Meteorological Innovation</p>
                 </div>
@@ -222,13 +222,13 @@
                 <h2>When the Weather Makes News, They Call the Experts</h2>
                 <p>Expert insights, panel discussions and conversations across leading media platforms.</p>
             </div>
-            <div class="wx-media-grid reveal" data-reveal data-reveal-delay="1">
+            <div class="wx-media-grid">
                 @forelse ($brandLogos as $logo)
-                    <div class="wx-media-logo">
+                    <div class="wx-media-logo reveal reveal-zoom" data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}">
                         <img src="{{ $logo->image_url }}" alt="{{ $logo->alt_text }}" />
                     </div>
                 @empty
-                    <div class="wx-media-logo">
+                    <div class="wx-media-logo reveal reveal-zoom" data-reveal>
                         <img src="images/brand-logo1.png" alt="All India Radio" />
                     </div>
                 @endforelse
@@ -377,6 +377,42 @@
 
         .wx-insta-item:hover .wx-insta-overlay {
             opacity: 1;
+        }
+
+        /* ---------- Scroll reveal variants (home page only) ---------- */
+        .reveal-left,
+        .reveal-right,
+        .reveal-zoom {
+            transition: opacity 1s var(--ease-apple), transform 1s var(--ease-apple), filter 1s var(--ease-apple);
+        }
+
+        .reveal-left {
+            transform: translateX(-56px);
+            filter: blur(4px);
+        }
+
+        .reveal-right {
+            transform: translateX(56px);
+            filter: blur(4px);
+        }
+
+        .reveal-zoom {
+            transform: scale(0.8);
+            filter: blur(4px);
+        }
+
+        .reveal-left.is-visible,
+        .reveal-right.is-visible,
+        .reveal-zoom.is-visible {
+            transform: translate(0, 0) scale(1);
+            filter: blur(0);
+        }
+
+        @media (max-width: 767px) {
+            .reveal-left,
+            .reveal-right {
+                transform: translateX(0) translateY(24px);
+            }
         }
     </style>
 @endpush
