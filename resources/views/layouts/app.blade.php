@@ -55,7 +55,7 @@
     <script src="{{ asset('material/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('material/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('material/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('material/js/main.js') }}"></script>
+    <script src="{{ asset('material/js/main.js') }}?v={{ filemtime(public_path('material/js/main.js')) }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script>
         // WOW.js caches each element's CSS animation-name once, the moment it first
