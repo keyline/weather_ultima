@@ -2104,6 +2104,7 @@ body {
 
 .wx-contact-main-section {
     padding: 40px 0 90px;
+    overflow: hidden;
 }
 
 .wx-contact-form-card,
