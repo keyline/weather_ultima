@@ -37,7 +37,7 @@
         <!-- 5 DIMENSION CARDS -->
         <section class="services-section py-5" id="services">
             <div class="container">
-                <div class="wx-dim-head reveal" data-reveal>
+                <div class="wx-dim-head wow fadeInUp" data-wow-duration="1s">
                     <h2>{{ $home->banner_title ?: 'One Vision. Five Dimensions.' }}</h2>
                     <p>{{ $home->banner_subtitle ?: 'Explore our specialised solutions across weather intelligence, water, environmental monitoring, education and sustainable energy.' }}</p>
                 </div>
@@ -55,9 +55,9 @@
                             <div class="col">
                                 <a
                                     href="{{ $card->link_url ?: '#' }}"
-                                    class="dim-card reveal"
-                                    data-reveal
-                                    @if ($cardNumber > 1) data-reveal-delay="{{ $cardNumber - 1 }}" @endif
+                                    class="dim-card wow fadeInUp"
+                                    data-wow-duration="1s"
+                                    data-wow-delay="{{ ($cardNumber - 1) * 0.15 }}s"
                                     style="--dim-bg: url('{{ $card->image_url ?? $fallbackCardImage }}');"
                                 >
                                     <span class="dim-card-num">{{ $cardNumber }}</span>
@@ -76,7 +76,7 @@
     </div>
     <!-- /wx-top-scene -->
 
-    
+
     <!-- ABOUT THE FOUNDER -->
     <section class="wx-founder-section" id="founder">
         <div class="container">
@@ -90,13 +90,13 @@
                 ];
             @endphp
             <div class="wx-founder-card">
-                <div class="wx-founder-photo reveal reveal-left" data-reveal>
+                <div class="wx-founder-photo wow fadeInLeft" data-wow-duration="1s">
                     <img src="{{ $home->founder_image_url ?? asset('material/images/owner_img.png') }}" alt="{{ $founderName }}" />
                     <p class="wx-founder-name">{{ $founderName }}</p>
                     <p class="wx-founder-role">{{ $founderRole }}</p>
                 </div>
                 <div class="wx-founder-divider" aria-hidden="true"></div>
-                <div class="wx-founder-content reveal reveal-right" data-reveal data-reveal-delay="1">
+                <div class="wx-founder-content wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
                     <span class="wx-founder-eyebrow">About the Founder</span>
                     <p>{{ $founderIntro }}</p>
                     @foreach ($founderParagraphs as $paragraph)
@@ -116,7 +116,7 @@
     <!-- WEATHER STATION -->
     <section class="wx-station-section" id="station">
         <div class="container">
-            <div class="wx-station-card reveal" data-reveal>
+            <div class="wx-station-card wow fadeInUp" data-wow-duration="1s">
                 <div class="wx-section-head">
                     <h2>Our Weather Station</h2>
                 </div>
@@ -183,19 +183,19 @@
     <section class="wx-stats-section" id="stats">
         <div class="container">
             <div class="wx-stats-banner">
-                <div class="wx-stat reveal reveal-zoom" data-reveal>
+                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s">
                     <p class="wx-stat-num"><span class="count-number" data-count="10">0</span>K+</p>
                     <p class="wx-stat-label">Weather-Smart Clients</p>
                 </div>
-                <div class="wx-stat reveal reveal-zoom" data-reveal data-reveal-delay="1">
+                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.15s">
                     <p class="wx-stat-num"><span class="count-number" data-count="14">0</span>+</p>
                     <p class="wx-stat-label">Milestones &amp; Recognitions</p>
                 </div>
-                <div class="wx-stat reveal reveal-zoom" data-reveal data-reveal-delay="2">
+                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.3s">
                     <p class="wx-stat-num"><span class="count-number" data-count="5">0</span>+</p>
                     <p class="wx-stat-label">Stations Reading the Sky 24/7</p>
                 </div>
-                <div class="wx-stat reveal reveal-zoom" data-reveal data-reveal-delay="3">
+                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.45s">
                     <p class="wx-stat-num"><span class="count-number" data-count="20">0</span>+</p>
                     <p class="wx-stat-label">Years of Meteorological Innovation</p>
                 </div>
@@ -218,17 +218,17 @@
             aria-hidden="true"
         />
         <div class="container">
-            <div class="wx-section-head reveal" data-reveal>
+            <div class="wx-section-head wow fadeInUp" data-wow-duration="1s">
                 <h2>When the Weather Makes News, They Call the Experts</h2>
                 <p>Expert insights, panel discussions and conversations across leading media platforms.</p>
             </div>
             <div class="wx-media-grid">
                 @forelse ($brandLogos as $logo)
-                    <div class="wx-media-logo reveal reveal-zoom" data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}">
+                    <div class="wx-media-logo wow zoomIn" data-wow-duration="0.8s" data-wow-delay="{{ min($loop->iteration, 6) * 0.1 }}s">
                         <img src="{{ $logo->image_url }}" alt="{{ $logo->alt_text }}" />
                     </div>
                 @empty
-                    <div class="wx-media-logo reveal reveal-zoom" data-reveal>
+                    <div class="wx-media-logo wow zoomIn" data-wow-duration="0.8s">
                         <img src="images/brand-logo1.png" alt="All India Radio" />
                     </div>
                 @endforelse
@@ -240,13 +240,13 @@
     @if ($coreValues->isNotEmpty())
         <section class="wx-values-section" id="values">
             <div class="container">
-                <div class="wx-section-head reveal" data-reveal>
+                <div class="wx-section-head wow fadeInUp" data-wow-duration="1s">
                     <h2>Core Values</h2>
                     <p>Our RAINBOW Has More Than Colours.<br />It Has Values.</p>
                 </div>
                 <div class="wx-values-list">
                     @foreach ($coreValues as $value)
-                        <div class="wx-value-row">
+                        <div class="wx-value-row wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="{{ min($loop->index, 6) * 0.1 }}s">
                             <span class="wx-value-letter">{{ $value->icon }}</span>
                             <div class="wx-value-body">
                                 <h3>{{ $value->title }}</h3>
@@ -263,7 +263,7 @@
     @if ($instagramEmbedCode || $instagramPosts->isNotEmpty())
         <section class="wx-insta-section" id="instagram">
             <div class="container">
-                <div class="wx-section-head reveal" data-reveal>
+                <div class="wx-section-head wow fadeInUp" data-wow-duration="1s">
                     <h2>Follow Us on Instagram</h2>
                     @if ($siteSettings->social_instagram)
                         <p><a href="{{ $siteSettings->social_instagram }}" target="_blank" rel="noopener">@ Weather Ultima</a></p>
@@ -272,9 +272,9 @@
 
                 @if ($instagramEmbedCode)
                     {{-- Admin-only field (see .ai/rules/partials.md) — intentionally unescaped, it's a widget <script>/<div> snippet. --}}
-                    <div class="wx-insta-embed reveal" data-reveal data-reveal-delay="1">{!! $instagramEmbedCode !!}</div>
+                    <div class="wx-insta-embed wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">{!! $instagramEmbedCode !!}</div>
                 @else
-                    <div class="wx-insta-carousel owl-carousel reveal" data-reveal data-reveal-delay="1">
+                    <div class="wx-insta-carousel owl-carousel wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
                         @foreach ($instagramPosts as $post)
                             <a
                                 href="{{ $post->link_url ?: ($siteSettings->social_instagram ?: '#') }}"
@@ -296,10 +296,10 @@
     @if ($testimonials->isNotEmpty())
         <section class="wx-testimonial-section" id="testimonials">
             <div class="container">
-                <div class="wx-section-head reveal" data-reveal>
+                <div class="wx-section-head wow fadeInUp" data-wow-duration="1s">
                     <h2>What Our Clients Say</h2>
                 </div>
-                <div class="wx-testimonial-wrap reveal" data-reveal data-reveal-delay="1">
+                <div class="wx-testimonial-wrap wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
                     <div class="wx-testimonial-carousel owl-carousel">
                         @foreach ($testimonials as $testimonial)
                             <div class="wx-testimonial-item">
@@ -327,6 +327,7 @@
 @endsection
 
 @push ('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <style>
         .wx-founder-signature {
             display: block;
@@ -379,48 +380,29 @@
             opacity: 1;
         }
 
-        /* ---------- Scroll reveal variants (home page only) ---------- */
-        .reveal-left,
-        .reveal-right,
-        .reveal-zoom {
-            transition: opacity 1.3s var(--ease-apple), transform 1.3s var(--ease-apple);
-            will-change: opacity, transform;
-        }
-
-        .reveal-left {
-            transform: translateX(-56px);
-        }
-
-        .reveal-right {
-            transform: translateX(56px);
-        }
-
-        .reveal-zoom {
-            transform: scale(0.85);
-        }
-
-        .reveal-left.is-visible,
-        .reveal-right.is-visible,
-        .reveal-zoom.is-visible {
-            transform: translate(0, 0) scale(1);
-            will-change: auto;
-        }
-
-        @media (max-width: 767px) {
-            .reveal-left,
-            .reveal-right {
-                transform: translateX(0) translateY(24px);
-            }
+        /* WOW.js hides elements carrying .wow until it adds "animated" on scroll into view */
+        .wow {
+            visibility: hidden;
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .reveal-left,
-            .reveal-right,
-            .reveal-zoom {
-                opacity: 1;
-                transform: none;
-                transition: none;
+            .wow {
+                visibility: visible !important;
+                animation: none !important;
             }
         }
     </style>
+@endpush
+
+@push ('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        if (typeof WOW !== 'undefined') {
+            new WOW({
+                offset: 50,
+                mobile: true,
+                live: true
+            }).init();
+        }
+    </script>
 @endpush
