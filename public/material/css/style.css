@@ -2242,9 +2242,10 @@ body {
 }
 
 .wx-footer-logo {
-    height: 96px;
-    width: auto;
+    /* height: 96px; */
+    width: 100%;
     margin-bottom: 20px;
+    max-width: 220px;
 }
 
 .wx-footer-social {
