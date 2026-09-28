@@ -93,8 +93,8 @@
             ];
 
             var progress = 0;
-            var duration = 4000;
-            var interval = 30;
+            var duration = 1200;
+            var interval = 20;
             var increment = 100 / (duration / interval);
 
             var progressTimer = setInterval(function () {
@@ -125,8 +125,8 @@
                     document.body.classList.remove('wx-preloading');
                     setTimeout(function () {
                         preloader.remove();
-                    }, 1000);
-                }, 3000);
+                    }, 400);
+                }, 300);
             }
 
             if (document.readyState === 'complete') {
