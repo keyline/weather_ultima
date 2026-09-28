@@ -24,7 +24,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-4">
-                    <article class="wx-contact-card">
+                    <article class="wx-contact-card wow fadeInUp" data-wow-duration="0.9s">
                         <span class="wx-contact-card-icon"
                             ><i class="fa-solid fa-location-dot"></i
                         ></span>
@@ -33,7 +33,7 @@
                     </article>
                 </div>
                 <div class="col-md-4">
-                    <article class="wx-contact-card">
+                    <article class="wx-contact-card wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="0.15s">
                         <span class="wx-contact-card-icon"
                             ><i class="fa-solid fa-phone"></i
                         ></span>
@@ -42,7 +42,7 @@
                     </article>
                 </div>
                 <div class="col-md-4">
-                    <article class="wx-contact-card">
+                    <article class="wx-contact-card wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="0.3s">
                         <span class="wx-contact-card-icon"
                             ><i class="fa-solid fa-envelope"></i
                         ></span>
@@ -58,7 +58,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-6 d-flex">
-                    <div class="wx-contact-form-card">
+                    <div class="wx-contact-form-card wow fadeInLeft" data-wow-duration="1s">
                         <h2>Send Us a Message</h2>
                         <p>Have a question? Fill out the form and our team will get back to you shortly.</p>
 
@@ -132,7 +132,7 @@
                 </div>
 
                 <div class="col-lg-6 d-flex">
-                    <div class="wx-contact-map">
+                    <div class="wx-contact-map wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
                         <iframe
                             src="https://www.google.com/maps?q=Kolkata&output=embed"
                             width="100%"

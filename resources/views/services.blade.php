@@ -25,7 +25,7 @@
         <img src="images/cloud2.png" class="wx-intro-cloud wx-intro-cloud--left" alt="" aria-hidden="true" />
         <img src="images/cloud.png" class="wx-intro-cloud wx-intro-cloud--right" alt="" aria-hidden="true" />
         <div class="container">
-            <div class="wx-services-intro reveal" data-reveal>
+            <div class="wx-services-intro wow fadeInUp" data-wow-duration="1s">
                 <h2>{!! nl2br(e($introHeading)) !!}</h2>
                 @foreach ($introParagraphs as $paragraph)
                     <p>{{ $paragraph }}</p>
@@ -39,7 +39,7 @@
         <!-- SERVICES DETAIL TABS -->
         <section class="wx-service-detail-section">
             <div class="container">
-                <div class="wx-service-detail-grid">
+                <div class="wx-service-detail-grid wow fadeInUp" data-wow-duration="1s">
                     <div class="wx-service-tab-nav" role="tablist" aria-label="Services">
                         @foreach ($services as $service)
                             <button
@@ -103,21 +103,21 @@
     <!-- QUOTES -->
     <section class="wx-quotes-section">
         <div class="wx-quotes-grid">
-            <div class="wx-quote-card">
+            <div class="wx-quote-card wow fadeInUp" data-wow-duration="0.9s">
                 <img src="images/qutaion_yellow.svg" alt="" class="wx-quote-mark" />
                 <div class="wx-quote-body">
                     <p class="wx-quote-text">&ldquo;The weather teaches us something every day &ndash; conditions change, challenges arrive, and clear skies return. Business is no different. Understand the change, find the solution, and keep moving forward.&rdquo;</p>
                     <p class="wx-quote-author">- Rabindra Goenka</p>
                 </div>
             </div>
-            <div class="wx-quote-card">
+            <div class="wx-quote-card wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="0.15s">
                 <img src="images/qutaion_yellow.svg" alt="" class="wx-quote-mark" />
                 <div class="wx-quote-body">
                     <p class="wx-quote-text">When a butterfly flutters its wings in one part of the world, it can eventually cause a hurricane in another.</p>
                     <p class="wx-quote-author">-Edward Norton Lorenz</p>
                 </div>
             </div>
-            <div class="wx-quote-card">
+            <div class="wx-quote-card wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="0.3s">
                 <img src="images/qutaion_yellow.svg" alt="" class="wx-quote-mark" />
                 <div class="wx-quote-body">
                     <p class="wx-quote-text">Wherever you go, no matter what the weather, always bring your own sunshine.</p>

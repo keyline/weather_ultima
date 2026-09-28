@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('material/css/menu.css') }}" />
     <link rel="stylesheet" href="{{ asset('material/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('material/css/responsive.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
 
     @stack ('styles')
 </head>

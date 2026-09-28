@@ -1197,6 +1197,19 @@ body {
     }
 }
 
+/* ---------- WOW.js (site-wide) ---------- */
+/* WOW.js hides elements carrying .wow until it adds "animated" on scroll into view */
+.wow {
+    visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wow {
+        visibility: visible !important;
+        animation: none !important;
+    }
+}
+
 /* ---------- Core values ---------- */
 .wx-values-section {
     padding: 80px 0;

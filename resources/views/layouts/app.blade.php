@@ -16,6 +16,16 @@
     <script src="{{ asset('material/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('material/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('material/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        if (typeof WOW !== 'undefined') {
+            new WOW({
+                offset: 50,
+                mobile: true,
+                live: true
+            }).init();
+        }
+    </script>
 
     @stack ('scripts')
 </body>

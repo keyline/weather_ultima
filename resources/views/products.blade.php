@@ -15,7 +15,7 @@
         <img src="images/cloud2.png" class="wx-intro-cloud wx-intro-cloud--left" alt="" aria-hidden="true" />
         <img src="images/cloud.png" class="wx-intro-cloud wx-intro-cloud--right" alt="" aria-hidden="true" />
         <div class="container">
-            <div class="wx-services-intro reveal" data-reveal>
+            <div class="wx-services-intro wow fadeInUp" data-wow-duration="1s">
                 <h2>Products</h2>
                 <p class="wx-services-intro-subhead">Every reading starts with the right instrument.</p>
                 <p>From weather stations and sensors to solar systems and monitoring software, every product we offer is designed, tested and supported by the same team behind our services &ndash; built for real field conditions, not just spec sheets.</p>
@@ -31,7 +31,7 @@
             @endif
 
             @if ($products->isEmpty())
-                <div class="wx-services-intro reveal" data-reveal style="text-align:center;">
+                <div class="wx-services-intro wow fadeInUp" data-wow-duration="1s" style="text-align:center;">
                     <h2>Products coming soon</h2>
                     <p>Our product catalogue is being updated. Please check back shortly or <a href="{{ route('contact') }}">get in touch</a>.</p>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     @foreach ($products as $product)
                         <div class="col">
-                            <div class="wx-product-card reveal" data-reveal @if ($loop->index) data-reveal-delay="{{ min($loop->index, 2) }}" @endif>
+                            <div class="wx-product-card wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="{{ min($loop->index, 5) * 0.1 }}s">
                                 <div class="wx-product-card-img">
                                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}" />
                                 </div>
@@ -115,21 +115,21 @@
     <!-- QUOTES -->
     <section class="wx-quotes-section">
         <div class="wx-quotes-grid">
-            <div class="wx-quote-card">
+            <div class="wx-quote-card wow fadeInUp" data-wow-duration="0.9s">
                 <img src="images/qutaion_yellow.svg" alt="" class="wx-quote-mark" />
                 <div class="wx-quote-body">
                     <p class="wx-quote-text">&ldquo;The weather teaches us something every day &ndash; conditions change, challenges arrive, and clear skies return. Business is no different. Understand the change, find the solution, and keep moving forward.&rdquo;</p>
                     <p class="wx-quote-author">- Rabindra Goenka</p>
                 </div>
             </div>
-            <div class="wx-quote-card">
+            <div class="wx-quote-card wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="0.15s">
                 <img src="images/qutaion_yellow.svg" alt="" class="wx-quote-mark" />
                 <div class="wx-quote-body">
                     <p class="wx-quote-text">When a butterfly flutters its wings in one part of the world, it can eventually cause a hurricane in another.</p>
                     <p class="wx-quote-author">-Edward Norton Lorenz</p>
                 </div>
             </div>
-            <div class="wx-quote-card">
+            <div class="wx-quote-card wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="0.3s">
                 <img src="images/qutaion_yellow.svg" alt="" class="wx-quote-mark" />
                 <div class="wx-quote-body">
                     <p class="wx-quote-text">Wherever you go, no matter what the weather, always bring your own sunshine.</p>

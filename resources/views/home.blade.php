@@ -327,7 +327,6 @@
 @endsection
 
 @push ('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <style>
         .wx-founder-signature {
             display: block;
@@ -379,30 +378,5 @@
         .wx-insta-item:hover .wx-insta-overlay {
             opacity: 1;
         }
-
-        /* WOW.js hides elements carrying .wow until it adds "animated" on scroll into view */
-        .wow {
-            visibility: hidden;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .wow {
-                visibility: visible !important;
-                animation: none !important;
-            }
-        }
     </style>
-@endpush
-
-@push ('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-    <script>
-        if (typeof WOW !== 'undefined') {
-            new WOW({
-                offset: 50,
-                mobile: true,
-                live: true
-            }).init();
-        }
-    </script>
 @endpush
