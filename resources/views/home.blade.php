@@ -97,7 +97,7 @@
                 </div>
                 <div class="wx-founder-divider" aria-hidden="true"></div>
                 <div class="wx-founder-content">
-                    <span class="wx-founder-eyebrow">About the Founder</span>
+                    <span class="wx-founder-eyebrow">About the Founder 2</span>
                     <p>{{ $founderIntro }}</p>
                     @foreach ($founderParagraphs as $paragraph)
                         <p>{{ $paragraph }}</p>
