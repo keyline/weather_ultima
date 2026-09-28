@@ -93,7 +93,7 @@
             ];
 
             var progress = 0;
-            var duration = 4800;
+            var duration = 4000;
             var interval = 50;
             var increment = 100 / (duration / interval);
 
@@ -126,7 +126,7 @@
                     setTimeout(function () {
                         preloader.remove();
                     }, 1000);
-                }, 5000);
+                }, 3000);
             }
 
             if (document.readyState === 'complete') {
