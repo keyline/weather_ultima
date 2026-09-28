@@ -82,14 +82,14 @@
             var statusText = document.getElementById('wxPreloaderStatusText');
 
             var messages = [
-                'Initializing weather data',
-                'Connecting satellites',
-                'Reading atmosphere',
-                'Analyzing cloud patterns',
-                'Processing temperature',
-                'Checking wind conditions',
-                'Preparing weather intelligence',
-                'Almost ready'
+                "Starting weather...",
+                "Connecting...",
+                "Reading weather...",
+                "Analyzing clouds...",
+                "Checking temp...",
+                "Checking wind...",
+                "Preparing forecast...",
+                "Almost ready..."
             ];
 
             var progress = 0;
