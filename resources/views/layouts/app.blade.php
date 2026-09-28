@@ -94,7 +94,7 @@
 
             var progress = 0;
             var duration = 4000;
-            var interval = 50;
+            var interval = 30;
             var increment = 100 / (duration / interval);
 
             var progressTimer = setInterval(function () {
