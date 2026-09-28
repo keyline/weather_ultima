@@ -157,11 +157,17 @@
             }
 
             var lenis = new Lenis({
-                duration: 1.2,
+                // A longer duration plus a quart ease-out (steady deceleration
+                // all the way to a stop) reads as noticeably smoother than a
+                // short, steep exponential curve, which decelerates almost
+                // immediately and then drags at the tail.
+                duration: 1.6,
                 easing: function (t) {
-                    return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+                    return 1 - Math.pow(1 - t, 4);
                 },
-                smoothWheel: true
+                smoothWheel: true,
+                wheelMultiplier: 1,
+                touchMultiplier: 1.5
             });
 
             function raf(time) {
