@@ -137,6 +137,41 @@
         })();
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script>
+        // Lenis smooth scroll, site-wide. Deliberately not gated behind
+        // window "load" like WOW below — there's no caching-style race here,
+        // and starting it as soon as the DOM above this point exists means
+        // scrolling feels smooth immediately rather than snapping to native
+        // scroll for the first moment after the preloader clears. Respects
+        // prefers-reduced-motion since Lenis doesn't check that itself.
+        // Also see style.css: native `scroll-behavior: smooth` is
+        // deliberately NOT set anywhere else on <html>, since running it
+        // alongside Lenis causes the two to fight over easing.
+        (function () {
+            if (typeof Lenis === 'undefined') {
+                return;
+            }
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
+
+            var lenis = new Lenis({
+                duration: 1.2,
+                easing: function (t) {
+                    return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+                },
+                smoothWheel: true
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        })();
+    </script>
+
     @include ('layouts.header')
 
     <main>

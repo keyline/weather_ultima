@@ -18,10 +18,27 @@ html {
     }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    html {
-        scroll-behavior: smooth;
-    }
+/* Native scroll-behavior: smooth is deliberately NOT set here — Lenis (see
+   layouts/app.blade.php) now drives smooth scrolling site-wide via JS, and
+   the two fight each other (double-easing/jank) if both are active. Lenis
+   itself checks prefers-reduced-motion before initialising. */
+
+/* Lenis takes over scroll on <html>; keep native scrollbar space reserved so
+   the page doesn't shift width when Lenis's own scroll handling kicks in. */
+html.lenis {
+    height: auto;
+}
+
+html.lenis.lenis-smooth {
+    scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
 }
 
 body {
