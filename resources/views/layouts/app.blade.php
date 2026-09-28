@@ -33,7 +33,7 @@
             if (!preloader) {
                 return;
             }
-            var minVisibleUntil = Date.now() + 400;
+            var minVisibleUntil = Date.now() + 400000;
             function hidePreloader() {
                 var wait = Math.max(0, minVisibleUntil - Date.now());
                 setTimeout(function () {
@@ -41,7 +41,7 @@
                     document.body.classList.remove('wx-preloading');
                     setTimeout(function () {
                         preloader.remove();
-                    }, 60000);
+                    }, 6000000);
                 }, wait);
             }
             if (document.readyState === 'complete') {
