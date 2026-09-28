@@ -41,7 +41,7 @@
                     document.body.classList.remove('wx-preloading');
                     setTimeout(function () {
                         preloader.remove();
-                    }, 600);
+                    }, 60000);
                 }, wait);
             }
             if (document.readyState === 'complete') {
