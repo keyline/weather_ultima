@@ -113,7 +113,7 @@
 @endsection
 
 @push ('styles')
-    <link rel="stylesheet" href="{{ asset('material/css/about.css') }}?v={{ filemtime(public_path('material/css/about.css')) }}" />
+    <link rel="stylesheet" href="{{ asset('material/css/about.css') }}?v={{ is_file(public_path('material/css/about.css')) ? filemtime(public_path('material/css/about.css')) : '1' }}" />
 @endpush
 
 @push ('scripts')

@@ -23,6 +23,14 @@ Homestead.json
 .phpunit.result.cache
 
 /public/*
+!/public/material/
+/public/material/*
+!/public/material/css/
+/public/material/css/*
+!/public/material/css/about.css
+!/public/material/images/
+/public/material/images/*
+!/public/material/images/person-placeholder.svg
 /storage/pail
 .env.backup
 .env.production

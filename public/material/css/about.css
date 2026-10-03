@@ -1,0 +1,32 @@
+.wx-about-page { color: var(--wx-text); }
+.wx-about-section { padding: 70px 0; }
+.wx-about-section--muted { background: #f2f3f5; }
+.wx-about-page h2 { color: #184a97; font-size: clamp(1.6rem, 3vw, 2.35rem); font-weight: 400; line-height: 1.3; margin-bottom: 24px; }
+.wx-about-page h3 { color: #184a97; font-size: 1.25rem; font-weight: 500; line-height: 1.4; margin-bottom: 14px; }
+.wx-about-page p { color: var(--wx-text-muted); line-height: 1.8; font-size: .95rem; text-align: justify; overflow-wrap: break-word; }
+.wx-about-eyebrow { display: block; color: #184a97; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+.wx-about-intro-image { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 16px; }
+.wx-about-card { background: #fff; border: 1px solid #e1e8f1; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 20px -10px rgba(20,40,60,.18); }
+.wx-about-card > img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
+.wx-about-card-body { padding: 26px; }
+.wx-about-card-body p:last-child { margin-bottom: 0; }
+.wx-about-number { display: block; color: #a4b8d3; font-size: 1.8rem; font-weight: 400; margin-bottom: 10px; }
+.wx-about-carousel .owl-stage { display: flex; }
+.wx-about-carousel .owl-item { display: flex; float: none; }
+.wx-about-carousel .wx-about-card { width: 100%; }
+.wx-about-carousel:not(.owl-loaded) { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.wx-about-carousel .owl-stage-outer { padding-bottom: 14px; }
+.wx-about-carousel .owl-nav, .wx-about-carousel .owl-nav.disabled { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
+.wx-about-carousel .owl-nav button.owl-prev, .wx-about-carousel .owl-nav button.owl-next { position: static; transform: none; }
+.wx-about-carousel .owl-nav .disabled { opacity: .4; }
+.wx-about-role { display: block; color: #607386; font-size: .85rem; margin-bottom: 18px; }
+.wx-about-card > .wx-about-portrait { aspect-ratio: 8 / 7; object-fit: contain; background: #eaf0f7; }
+.wx-about-founder-image { position: sticky; top: 120px; margin: 0; }
+.wx-about-founder-image img { width: 100%; height: auto; border-radius: 14px; object-fit: cover; }
+.wx-about-founder-image figcaption { color: #184a97; padding: 16px 0; font-size: 1.15rem; text-align: center; }
+.wx-about-page .wx-about-signature { color: #184a97; font-style: italic; border-left: 3px solid #184a97; padding-left: 18px; margin-top: 24px; }
+.wx-about-northstar { margin: 0; }
+.wx-about-northstar img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 9; object-fit: cover; border-radius: 12px; }
+.wx-about-northstar figcaption { padding-top: 12px; text-align: center; color: #184a97; font-size: .95rem; }
+@media (max-width: 991px) { .wx-about-section { padding: 50px 0; } .wx-about-founder-image { position: static; max-width: 420px; margin: 0 auto; } .wx-about-intro-image { max-height: 400px; aspect-ratio: 8 / 5; } .wx-about-carousel:not(.owl-loaded) { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 575px) { .wx-about-section { padding: 40px 0; } .wx-about-card-body { padding: 22px; } .wx-about-carousel:not(.owl-loaded) { grid-template-columns: minmax(0,1fr); } }
