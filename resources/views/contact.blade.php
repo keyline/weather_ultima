@@ -38,7 +38,7 @@
                             ><i class="fa-solid fa-phone"></i
                         ></span>
                         <h3>Call Us</h3>
-                        <p><a href="tel:{{ preg_replace('/[^0-9+]/', '', (string) $siteSettings->contact_phone) }}">{{ $siteSettings->contact_phone }}</a></p>
+                        <p><a href="tel:+919903371108">9903371108</a> / <a href="tel:+918910296427">8910296427</a><br /><span>Landline: <a href="tel:+913346377803">033-46377803</a></span></p>
                     </article>
                 </div>
                 <div class="col-md-4">

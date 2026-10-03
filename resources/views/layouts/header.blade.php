@@ -43,7 +43,7 @@
 
                 <div class="offcanvas-body">
                     <ul class="navbar-nav ms-lg-auto">
-                        @foreach (['home' => 'Home', 'products' => 'Products', 'services' => 'Services', 'contact' => 'Contact'] as $route => $label)
+                        @foreach (['home' => 'Home', 'about' => 'About', 'products' => 'Products', 'services' => 'Services', 'contact' => 'Contact'] as $route => $label)
                             <li
                                 class="nav-item {{ request()->routeIs($route) ? 'active' : '' }}"
                             >

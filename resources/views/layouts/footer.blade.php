@@ -28,6 +28,7 @@
                     <a href="{{ route('home') }}" class="wx-footer-nav-link"
                         >Home</a
                     >
+                    <a href="{{ route('about') }}" class="wx-footer-nav-link">About</a>
                     <a href="{{ route('products') }}" class="wx-footer-nav-link"
                         >Products</a
                     >
@@ -70,7 +71,7 @@
                         <div>
                             <p class="wx-footer-contact-label">Global Support Line</p>
                             <p class="wx-footer-contact-value">
-                                <a href="tel:{{ preg_replace('/[^0-9+]/', '', (string) $siteSettings->contact_phone) }}">{{ $siteSettings->contact_phone }}</a>
+                                <a href="tel:+919903371108">9903371108</a> / <a href="tel:+918910296427">8910296427</a><br /><span>Landline: <a href="tel:+913346377803">033-46377803</a></span>
                             </p>
                         </div>
                     </div>

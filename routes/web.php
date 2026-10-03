@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\Admin\AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminNewPasswordController;
@@ -38,6 +39,7 @@ Route::get('storage/{path}', StorageFileController::class)->where('path', '.+')-
 Route::get('public/storage/{path}', StorageFileController::class)->where('path', '.+');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('about', [AboutPageController::class, 'show'])->name('about');
 Route::get('products', [ProductController::class, 'index'])->name('products');
 Route::post('products/{product}/enquiry', [ProductEnquiryController::class, 'store'])->middleware('throttle:enquiry')->name('products.enquiry');
 Route::get('services', [ServicesPageController::class, 'show'])->name('services');

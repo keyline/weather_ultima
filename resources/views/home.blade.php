@@ -205,18 +205,6 @@
 
     <!-- MEDIA MENTIONS -->
     <section class="wx-media-section" id="media">
-        <img
-            src="images/logo-white.svg"
-            class="wx-media-logo-cloud wx-media-logo-cloud--top"
-            alt=""
-            aria-hidden="true"
-        />
-        <img
-            src="images/logo-white.svg"
-            class="wx-media-logo-cloud wx-media-logo-cloud--bottom"
-            alt=""
-            aria-hidden="true"
-        />
         <div class="container">
             <div class="wx-section-head wow fadeInUp" data-wow-duration="1s">
                 <h2>When the Weather Makes News, They Call the Experts</h2>
@@ -225,11 +213,11 @@
             <div class="wx-media-grid">
                 @forelse ($brandLogos as $logo)
                     <div class="wx-media-logo wow zoomIn" data-wow-duration="0.8s" data-wow-delay="{{ min($loop->iteration, 6) * 0.1 }}s">
-                        <img src="{{ $logo->image_url }}" alt="{{ $logo->alt_text }}" />
+                        <span class="wx-media-name">{{ $logo->alt_text }}</span>
                     </div>
                 @empty
                     <div class="wx-media-logo wow zoomIn" data-wow-duration="0.8s">
-                        <img src="images/brand-logo1.png" alt="All India Radio" />
+                        <span class="wx-media-name">All India Radio</span>
                     </div>
                 @endforelse
             </div>

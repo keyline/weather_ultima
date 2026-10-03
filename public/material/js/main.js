@@ -1,4 +1,19 @@
 $(function () {
+    var bodyParagraphs = document.querySelectorAll("main p, footer p");
+
+    function justifyBodyText() {
+        bodyParagraphs.forEach(function (paragraph) {
+            paragraph.classList.remove("wx-text-justify");
+            var alignment = window.getComputedStyle(paragraph).textAlign;
+            if (alignment === "left" || alignment === "start") {
+                paragraph.classList.add("wx-text-justify");
+            }
+        });
+    }
+
+    justifyBodyText();
+    window.addEventListener("resize", justifyBodyText);
+
     var $body = $("body");
     var $menu = $("#printsaleNavbar");
     var $overlay = $(".printsale-menu-overlay");
@@ -32,7 +47,7 @@ $(function () {
         }
     });
 
-    $(".wx-testimonial-carousel").owlCarousel({
+    $(".wx-testimonial-carousel:not(.wx-about-carousel)").owlCarousel({
         loop: true,
         margin: 20,
         nav: true,
