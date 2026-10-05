@@ -1,6 +1,7 @@
 ---
 paths:
   - 'resources/views/admin/**'
+  - 'app/Http/Controllers/Admin/AboutPageController.php'
 ---
 
 # Admin
@@ -13,6 +14,6 @@ paths:
 - `$siteSettings` is available in every `admin.*` view (composer in `AppServiceProvider`) — use `$siteSettings->display_name`, `header_logo_url`, `favicon_url`.
 
 ## Route names
-`admin.dashboard`, `admin.products.*` (+ `admin.products.toggle`), `admin.product-enquiries.*`, `admin.contact-enquiries.*`, `admin.testimonials.*` (+ `admin.testimonials.toggle` / `.bulk-destroy`), `admin.settings.email.*`, `admin.settings.smtp.*`, `admin.settings.site.*`, `admin.enquiry-notifications`.
+`admin.dashboard`, `admin.about.{edit,update}`, `admin.products.*` (+ `admin.products.toggle`), `admin.product-enquiries.*`, `admin.contact-enquiries.*`, `admin.testimonials.*` (+ `admin.testimonials.toggle` / `.bulk-destroy`), `admin.settings.email.*`, `admin.settings.smtp.*`, `admin.settings.site.*`, `admin.enquiry-notifications`.
 
-Sidebar order: Dashboard · Home (Brand Logo, Top Banner, About Founder, Core Values) · Products (Products, Product Enquiries) · Testimonials · Services · Contact Enquiries · Settings (Email, SMTP, Site). Home routes: `admin.home.{banner,founder,logo,core-values}.*` — see `.ai/rules/home.md`.
+Sidebar order: Dashboard · Home (Brand Logo, Top Banner, About Founder, Core Values) · Products (Products, Product Enquiries) · About (Banner & Introduction, Mission, Vision, Founder story, Team members, Northstar people) · Testimonials · Services · Contact Enquiries · Settings (Email, SMTP, Site). Home routes: `admin.home.{banner,founder,logo,core-values}.*` — see `.ai/rules/home.md`.

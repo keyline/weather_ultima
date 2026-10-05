@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutPageController;
+use App\Http\Controllers\Admin\AboutPageController as AdminAboutPageController;
 use App\Http\Controllers\Admin\AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminNewPasswordController;
@@ -60,6 +61,8 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
     Route::middleware(['auth', 'admin'])->group(function (): void {
         Route::get('dashboard', AdminDashboardController::class)->name('dashboard');
         Route::get('enquiry-notifications', EnquiryNotificationController::class)->name('enquiry-notifications');
+        Route::get('about', [AdminAboutPageController::class, 'edit'])->name('about.edit');
+        Route::put('about', [AdminAboutPageController::class, 'update'])->name('about.update');
 
         Route::prefix('home')->name('home.')->group(function (): void {
             Route::get('banner', [HomeBannerController::class, 'edit'])->name('banner.edit');

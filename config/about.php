@@ -2,7 +2,14 @@
 
 return [
     'banner_title' => 'About Us',
+    'northstar_title' => 'Northstar',
+    'team_title' => 'Our Team',
+    'banner' => [
+        'image' => 'material/images/cloud.png',
+        'image_alt' => '',
+    ],
     'intro' => [
+        'label' => 'About Weather Ultima',
         'title' => 'Weather Intelligence. Environmental Awareness. A More Resilient Future.',
         'paragraphs' => [
             0 => 'Weather Ultima Private Limited is an emerging weather and environmental intelligence company focused on making reliable, meaningful and actionable information about weather and the environment accessible to people, communities, institutions and businesses.',

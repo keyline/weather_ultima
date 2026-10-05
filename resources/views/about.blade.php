@@ -2,7 +2,16 @@
 @section ('title', $about['banner_title'] . ' | ' . $siteSettings->display_name)
 
 @section ('content')
+    @php
+        $aboutImageUrl = static fn (?string $image, string $fallback = ''): string => asset($image
+            ? (str_starts_with($image, 'about/') ? 'storage/'.$image : $image)
+            : $fallback);
+    @endphp
+
     <header class="wx-page-banner wx-page-banner--left">
+        @if ($about['banner']['image'] ?? false)
+            <img src="{{ $aboutImageUrl($about['banner']['image']) }}" class="wx-about-banner-image" alt="{{ $about['banner']['image_alt'] ?? '' }}" />
+        @endif
         <img src="{{ asset('material/images/cloud.png') }}" class="wx-banner-cloud wx-banner-cloud--top" alt="" aria-hidden="true" />
         <img src="{{ asset('material/images/cloud3.png') }}" class="wx-banner-cloud wx-banner-cloud--seam" alt="" aria-hidden="true" />
         <div class="container"><h1>{{ $about['banner_title'] }}</h1></div>
@@ -13,14 +22,14 @@
             <div class="container">
                 <div class="row g-4 g-lg-5 align-items-center">
                     <div class="col-lg-7">
-                        <span class="wx-about-eyebrow">About Weather Ultima</span>
+                        <span class="wx-about-eyebrow">{{ $about['intro']['label'] }}</span>
                         <h2 id="about-intro-title">{{ $about['intro']['title'] }}</h2>
                         @foreach ($about['intro']['paragraphs'] as $paragraph)
                             <p>{{ $paragraph }}</p>
                         @endforeach
                     </div>
                     <div class="col-lg-5">
-                        <img class="wx-about-intro-image" src="{{ asset($about['intro']['image']) }}" alt="Weather observation and environmental intelligence" width="640" height="640" loading="lazy" />
+                        <img class="wx-about-intro-image" src="{{ $aboutImageUrl($about['intro']['image'] ?? null, 'material/images/service1.png') }}" alt="Weather observation and environmental intelligence" width="640" height="640" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -36,7 +45,7 @@
                     <div class="wx-about-carousel wx-testimonial-carousel owl-carousel" role="region" aria-label="{{ $about[$section]['label'] }} carousel">
                         @foreach ($about[$section]['cards'] as $card)
                             <article class="wx-about-card">
-                                <img src="{{ asset($card['image']) }}" alt="{{ $card['title'] }}" width="640" height="400" loading="lazy" />
+                                <img src="{{ $aboutImageUrl($card['image'] ?? null, 'material/images/service1.png') }}" alt="{{ $card['title'] }}" width="640" height="400" loading="lazy" />
                                 <div class="wx-about-card-body">
                                     <span class="wx-about-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                                     <h3>{{ $card['title'] }}</h3>
@@ -56,7 +65,7 @@
                 <div class="row g-4 g-lg-5">
                     <div class="col-lg-4">
                         <figure class="wx-about-founder-image">
-                            <img src="{{ asset($about['founder']['image']) }}" alt="{{ $about['founder']['name'] }}" width="640" height="720" loading="lazy" />
+                            <img src="{{ $aboutImageUrl($about['founder']['image'] ?? null, 'material/images/owner_img.png') }}" alt="{{ $about['founder']['name'] }}" width="640" height="720" loading="lazy" />
                             <figcaption>{{ $about['founder']['name'] }}</figcaption>
                         </figure>
                     </div>
@@ -74,12 +83,12 @@
 
         <section class="wx-about-section" aria-labelledby="about-team-title">
             <div class="container">
-                <div class="wx-section-head"><h2 id="about-team-title">Our Team</h2></div>
+                <div class="wx-section-head"><h2 id="about-team-title">{{ $about['team_title'] }}</h2></div>
                 <div class="row g-4 justify-content-center">
                     @foreach ($about['team'] as $member)
                         <div class="col-md-6 col-lg-4">
                             <article class="wx-about-card h-100">
-                                <img class="wx-about-portrait" src="{{ asset($member['image']) }}" alt="Photo placeholder for {{ $member['name'] }}" width="640" height="720" loading="lazy" />
+                                <img class="wx-about-portrait" src="{{ $aboutImageUrl($member['image'] ?? null, 'material/images/person-placeholder.svg') }}" alt="Photo of {{ $member['name'] }}" width="640" height="720" loading="lazy" />
                                 <div class="wx-about-card-body">
                                     <h3>{{ $member['name'] }}</h3>
                                     <span class="wx-about-role">{{ $member['role'] }}@if ($member['organisation']) · {{ $member['organisation'] }}@endif</span>
@@ -96,12 +105,12 @@
 
         <section class="wx-about-section wx-about-section--muted" aria-labelledby="about-northstar-title">
             <div class="container">
-                <div class="wx-section-head"><h2 id="about-northstar-title">Northstar</h2></div>
+                <div class="wx-section-head"><h2 id="about-northstar-title">{{ $about['northstar_title'] }}</h2></div>
                 <div class="row g-4">
                     @foreach ($about['northstar'] as $person)
                         <div class="col-6 col-md-4 col-lg-3">
                             <figure class="wx-about-northstar">
-                                <img src="{{ asset($person['image']) }}" alt="Northstar portrait placeholder" width="640" height="720" loading="lazy" />
+                                <img src="{{ $aboutImageUrl($person['image'] ?? null, 'material/images/person-placeholder.svg') }}" alt="Photo of {{ $person['name'] }}" width="640" height="720" loading="lazy" />
                                 <figcaption>{{ $person['name'] }}</figcaption>
                             </figure>
                         </div>

@@ -24,6 +24,7 @@
 
         @php
             $notifications = $enquiryNotifications ?? ['contact' => 0, 'product' => 0, 'total' => 0];
+            $aboutSection = request()->query('section', 'banner-intro');
 
             $navigation = [
                 [
@@ -51,6 +52,18 @@
                     'children' => [
                         ['label' => 'Products', 'url' => route('admin.products.index'), 'active' => request()->routeIs('admin.products.*')],
                         ['label' => 'Product Enquiries', 'url' => route('admin.product-enquiries.index'), 'active' => request()->routeIs('admin.product-enquiries.*'), 'badgeKey' => 'product', 'badge' => $notifications['product']],
+                    ],
+                ],
+                [
+                    'label' => 'About',
+                    'icon' => 'fa-circle-info',
+                    'children' => [
+                        ['label' => 'Banner & Introduction', 'url' => route('admin.about.edit', ['section' => 'banner-intro']).'#about-banner-intro', 'active' => request()->routeIs('admin.about.*') && $aboutSection === 'banner-intro'],
+                        ['label' => 'Mission', 'url' => route('admin.about.edit', ['section' => 'mission']).'#about-mission', 'active' => request()->routeIs('admin.about.*') && $aboutSection === 'mission'],
+                        ['label' => 'Vision', 'url' => route('admin.about.edit', ['section' => 'vision']).'#about-vision', 'active' => request()->routeIs('admin.about.*') && $aboutSection === 'vision'],
+                        ['label' => 'Founder story', 'url' => route('admin.about.edit', ['section' => 'founder']).'#about-founder', 'active' => request()->routeIs('admin.about.*') && $aboutSection === 'founder'],
+                        ['label' => 'Team members', 'url' => route('admin.about.edit', ['section' => 'team']).'#about-team', 'active' => request()->routeIs('admin.about.*') && $aboutSection === 'team'],
+                        ['label' => 'Northstar people', 'url' => route('admin.about.edit', ['section' => 'northstar']).'#about-northstar', 'active' => request()->routeIs('admin.about.*') && $aboutSection === 'northstar'],
                     ],
                 ],
                 [

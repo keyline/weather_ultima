@@ -1,13 +1,14 @@
 ---
 paths:
   - 'app/Services/**'
-  - 'app/Models/WeatherSetting.php'
-  - 'app/Models/InstagramSetting.php'
-  - 'app/Http/Controllers/Admin/WeatherSettingController.php'
-  - 'app/Http/Controllers/Admin/InstagramSettingController.php'
-  - 'resources/views/partials/weather-station-panel.blade.php'
-  - 'resources/views/admin/settings/instagram.blade.php'
-  - 'resources/views/home.blade.php'
+  - app/Models/WeatherSetting.php
+  - app/Models/InstagramSetting.php
+  - app/Http/Controllers/Admin/WeatherSettingController.php
+  - app/Http/Controllers/Admin/InstagramSettingController.php
+  - resources/views/partials/weather-station-panel.blade.php
+  - resources/views/admin/settings/instagram.blade.php
+  - resources/views/home.blade.php
+  - app/Models/AboutPageSetting.php
 ---
 
 # Partials
@@ -26,3 +27,6 @@ The homepage "Follow Us on Instagram" section (home.blade.php, `#instagram`) pic
 3. The manually curated `InstagramPost::enabled()->ordered()` fallback records (see `.ai/rules/home.md`) — used when the Graph API isn't configured, `is_active` is off, or the request fails (failures are caught and reported, never break the homepage), normalised to the same `{image_url, link_url}` shape as the Graph API result so `home.blade.php`'s carousel branch doesn't care which one it got.
 
 All three fields (`embed_code`, `access_token` encrypted, `instagram_user_id`, cached `username`, optional `token_expires_at` for an admin renewal warning) live in the single-row `instagram_settings` table (`InstagramSetting::current()`), managed at Settings → Instagram Feed (`admin.settings.instagram.{edit,update,test}`) — one form, one save button, both the embed textarea and the Graph API fields. Getting a Graph API token requires a Meta developer app + Graph API Explorer (`instagram_basic` permission) against an Instagram Business/Creator account linked to a Facebook Page — there is no in-app OAuth flow, the admin generates and pastes the token manually and must renew it before the ~60-day expiry. That's why the embed-code path exists and is checked first.
+
+## Keep public About reads free of writes
+AboutPageSetting::current() returns config/about.php as an unsaved fallback when no row exists. The public About page must stay read-only; the first successful admin save creates the single JSON content row.
