@@ -5,7 +5,7 @@ Before planning or editing, find the row whose globs match the file's path and r
 | Applies to | Rule file |
 | --- | --- |
 | resources/views/admin/**, resources/views/components/admin/**, resources/css/app.css | .ai/rules/admin-forms.md |
-| resources/views/admin/**, app/Http/Controllers/Admin/AboutPageController.php | .ai/rules/admin.md |
+| resources/views/admin/**, app/Http/Controllers/Admin/AboutPageController.php, app/Http/Controllers/Admin/HomeStatsVideoController.php | .ai/rules/admin.md |
 | app/Http/Controllers/Admin/ProductController.php, app/Http/Controllers/Admin/TestimonialController.php, resources/views/admin/products/**, resources/views/admin/testimonials/**, app/Http/Controllers/Admin/AdminNewPasswordController.php | .ai/rules/content-crud.md |
 | resources/views/admin/contact-enquiries/**, resources/views/admin/product-enquiries/**, app/Http/Controllers/Admin/ContactEnquiryController.php, app/Http/Controllers/Admin/ProductEnquiryController.php | .ai/rules/enquiries.md |
 | resources/views/layouts/**, resources/views/products.blade.php, resources/views/contact.blade.php, resources/views/partials/** | .ai/rules/frontend.md |

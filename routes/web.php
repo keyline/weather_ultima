@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\EmailSettingController;
 use App\Http\Controllers\Admin\EnquiryNotificationController;
 use App\Http\Controllers\Admin\HomeBannerController;
 use App\Http\Controllers\Admin\HomeFounderController;
+use App\Http\Controllers\Admin\HomeStatsVideoController;
 use App\Http\Controllers\Admin\InstagramPostController;
 use App\Http\Controllers\Admin\InstagramSettingController;
 use App\Http\Controllers\Admin\MaintenanceController;
@@ -67,6 +68,8 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::prefix('home')->name('home.')->group(function (): void {
             Route::get('banner', [HomeBannerController::class, 'edit'])->name('banner.edit');
             Route::put('banner', [HomeBannerController::class, 'update'])->name('banner.update');
+            Route::get('stats-video', [HomeStatsVideoController::class, 'edit'])->name('stats-video.edit');
+            Route::put('stats-video', [HomeStatsVideoController::class, 'update'])->name('stats-video.update');
             Route::delete('banner/cards/bulk', [DimensionCardController::class, 'bulkDestroy'])->name('cards.bulk-destroy');
             Route::patch('banner/cards/{dimension_card}/toggle', [DimensionCardController::class, 'toggle'])->name('cards.toggle');
             Route::resource('banner/cards', DimensionCardController::class)->parameters(['cards' => 'dimension_card'])->names('cards')->only(['create', 'store', 'edit', 'update', 'destroy']);

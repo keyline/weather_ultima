@@ -26,6 +26,7 @@ class StorageFileController extends Controller
         'gif' => 'image/gif',
         'svg' => 'image/svg+xml',
         'ico' => 'image/x-icon',
+        'mp4' => 'video/mp4',
     ];
 
     public function __invoke(string $path): BinaryFileResponse

@@ -47,6 +47,7 @@ class AdminNavigationTest extends TestCase
         $cases = [
             ['route' => 'admin.home.logo.index', 'label' => 'Brand Logo'],
             ['route' => 'admin.home.banner.edit', 'label' => 'Top Banner'],
+            ['route' => 'admin.home.stats-video.edit', 'label' => 'Stats Video'],
             ['route' => 'admin.home.founder.edit', 'label' => 'About Founder'],
             ['route' => 'admin.home.core-values.index', 'label' => 'Core Values'],
             ['route' => 'admin.home.core-values.create', 'label' => 'Core Values'],

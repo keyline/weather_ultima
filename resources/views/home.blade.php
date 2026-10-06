@@ -180,24 +180,50 @@
     </section>
 
     <!-- STATS BANNER -->
-    <section class="wx-stats-section" id="stats">
-        <div class="container">
-            <div class="wx-stats-banner">
-                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s">
-                    <p class="wx-stat-num"><span class="count-number" data-count="10">0</span>K+</p>
-                    <p class="wx-stat-label">Weather-Smart Clients</p>
+    <section class="wx-stats-section mt-5" id="stats">
+        <div class="wx-stats-layout">
+            <div class="wx-stats-media" aria-hidden="true">
+                @if ($statsVideoUrl)
+                    <video
+                        class="wx-stats-video"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        disablepictureinpicture
+                        tabindex="-1"
+                    >
+                        <source src="{{ $statsVideoUrl }}" type="video/mp4" />
+                    </video>
+                @else
+                    <img class="wx-stats-placeholder" src="{{ asset('material/images/product_img1.png') }}" alt="" />
+                @endif
+            </div>
+
+            <div class="wx-stats-content">
+                <div class="wx-stats-intro">
+                    <p class="wx-stats-eyebrow">More than weather</p>
+                    <p class="wx-stats-copy">With decades of experience and a growing network of weather stations, we turn accurate weather data into meaningful insights.</p>
                 </div>
-                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.15s">
-                    <p class="wx-stat-num"><span class="count-number" data-count="14">0</span>+</p>
-                    <p class="wx-stat-label">Milestones &amp; Recognitions</p>
-                </div>
-                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.3s">
-                    <p class="wx-stat-num"><span class="count-number" data-count="5">0</span>+</p>
-                    <p class="wx-stat-label">Stations Reading the Sky 24/7</p>
-                </div>
-                <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.45s">
-                    <p class="wx-stat-num"><span class="count-number" data-count="20">0</span>+</p>
-                    <p class="wx-stat-label">Years of Meteorological Innovation</p>
+
+                <div class="wx-stats-grid">
+                    <div class="wx-stat wow zoomIn" data-wow-duration="0.8s">
+                        <p class="wx-stat-num"><span class="count-number" data-count="10">0</span>K+</p>
+                        <p class="wx-stat-label">Weather-Smart Clients</p>
+                    </div>
+                    <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.15s">
+                        <p class="wx-stat-num"><span class="count-number" data-count="14">0</span>+</p>
+                        <p class="wx-stat-label">Milestones &amp; Recognitions</p>
+                    </div>
+                    <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.3s">
+                        <p class="wx-stat-num"><span class="count-number" data-count="5">0</span>+</p>
+                        <p class="wx-stat-label">Stations Reading the Sky 24/7</p>
+                    </div>
+                    <div class="wx-stat wow zoomIn" data-wow-duration="0.8s" data-wow-delay="0.45s">
+                        <p class="wx-stat-num"><span class="count-number" data-count="20">0</span>+</p>
+                        <p class="wx-stat-label">Years of Meteorological Innovation</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,14 +11,22 @@ use App\Models\Testimonial;
 use App\Models\WeatherSetting;
 use App\Services\InstagramFeedService;
 use App\Services\WeatherStationService;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     public function index(WeatherStationService $weatherStation, InstagramFeedService $instagramFeed): View
     {
+        $statsVideoPath = (string) config('homepage.stats_video_path');
+        $publicDisk = Storage::disk('public');
+        $statsVideoUrl = $publicDisk->exists($statsVideoPath)
+            ? route('storage.file', ['path' => $statsVideoPath, 'v' => $publicDisk->lastModified($statsVideoPath)])
+            : null;
+
         return view('home', [
             'home' => HomeSetting::current(),
+            'statsVideoUrl' => $statsVideoUrl,
             'dimensionCards' => DimensionCard::query()->enabled()->ordered()->get(),
             'brandLogos' => BrandLogo::query()->enabled()->ordered()->get(),
             'coreValues' => CoreValue::query()->enabled()->ordered()->get(),
