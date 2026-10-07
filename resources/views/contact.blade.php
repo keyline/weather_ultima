@@ -134,7 +134,7 @@
                 <div class="col-lg-6 d-flex">
                     <div class="wx-contact-map wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
                         <iframe
-                            src="https://www.google.com/maps?q=Kolkata&output=embed"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.0283257906617!2d88.4151299!3d22.615417399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f89fdaf7e245c1%3A0x958134750904373!2sSHINE%20STUDY!5e0!3m2!1sen!2sin!4v1791389595017!5m2!1sen!2sin"
                             width="100%"
                             height="100%"
                             style="border: 0"
