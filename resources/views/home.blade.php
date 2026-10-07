@@ -105,7 +105,7 @@
                     @if ($home->founder_signature_url)
                         <img src="{{ $home->founder_signature_url }}" alt="{{ $founderName }} signature" class="wx-founder-signature" />
                     @endif
-                    <a href="{{ route('contact') }}" class="wx-founder-btn"
+                    <a href="{{ route('about') }}" class="wx-founder-btn"
                         >Read More <i class="fa-solid fa-arrow-right"></i
                     ></a>
                 </div>

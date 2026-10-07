@@ -34,13 +34,15 @@
                     <h4>Services</h4>
                     <div class="wx-footer-services-grid">
                         <ul>
-                            <li>SkyWatch Live</li>
-                            <li>StationCraft</li>
-                            <li>SolarSphere</li>
+                            <li><a href="{{ $siteSettings->ultimate_weather_url }}" target="_blank">Ultimate Weather</a></li>
+                            <li><a href="{{ $siteSettings->station_craft_url }}" target="_blank">Station Craft</a></li>
+                            <li><a href="{{ $siteSettings->weatherwise_academy_url }}" target="_blank">WeatherWise Academy</a></li>
+                            <li><a href="{{ $siteSettings->solarsphere_url }}" target="_blank">SolarSphere</a></li>
                         </ul>
                         <ul>
-                            <li>WeatherWise Academy</li>
-                            <li>WaterSphere</li>
+                            <li><a href="{{ $siteSettings->watersphere_url }}" target="_blank">WaterSphere</a></li>
+                            <li><a href="{{ $siteSettings->medge_consulting_url }}" target="_blank">MetEdge Consulting</a></li>
+                            <li><a href="{{ $siteSettings->greenhorizon_url }}" target="_blank">GreenHorizon</a></li>
                         </ul>
                     </div>
                 </div>
