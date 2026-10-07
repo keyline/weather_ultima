@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateFooterMenuOrderRequest;
 use App\Http\Requests\Admin\UpdateSiteSettingsRequest;
 use App\Models\SiteSetting;
+use App\Services\FooterMenuService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class SiteSettingController extends Controller
 {
-    public function edit(): View
+    public function edit(FooterMenuService $footerMenu): View
     {
-        return view('admin.settings.site', ['settings' => SiteSetting::current()]);
+        return view('admin.settings.site', [
+            'settings' => SiteSetting::current(),
+            'footerMenuItems' => $footerMenu->items(),
+        ]);
     }
 
     public function update(UpdateSiteSettingsRequest $request): RedirectResponse
@@ -48,6 +53,17 @@ class SiteSettingController extends Controller
         $settings->update($data);
 
         return back()->with('status', 'Website settings saved.');
+    }
+
+    public function updateFooterMenu(UpdateFooterMenuOrderRequest $request, FooterMenuService $footerMenu): RedirectResponse
+    {
+        if (! $footerMenu->savePositions($request->validated()['menu_order'])) {
+            return back()->withErrors(['menu_order' => 'The footer menu order could not be saved. Please try again.']);
+        }
+
+        return redirect()
+            ->route('admin.settings.site.edit')
+            ->with('status', 'Footer menu order saved.');
     }
 
     private function deleteStoredFile(?string $path): void

@@ -9,6 +9,7 @@ paths:
   - resources/views/admin/settings/instagram.blade.php
   - resources/views/home.blade.php
   - app/Models/AboutPageSetting.php
+  - app/Services/FooterMenuService.php
 ---
 
 # Partials
@@ -30,3 +31,6 @@ All three fields (`embed_code`, `access_token` encrypted, `instagram_user_id`, c
 
 ## Keep public About reads free of writes
 AboutPageSetting::current() returns config/about.php as an unsaved fallback when no row exists. The public About page must stay read-only; the first successful admin save creates the single JSON content row.
+
+## Persist footer navigation order outside the database
+Footer link labels and destinations live in FooterMenuService. Admin order changes are validated and stored as a JSON list on the private local disk, so do not add site_settings columns or database migrations for this menu.

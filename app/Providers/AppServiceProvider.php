@@ -7,6 +7,7 @@ use App\Mail\MailChannelConfigurator;
 use App\Mail\Transport\BrevoApiTransport;
 use App\Models\SiteSetting;
 use App\Models\User;
+use App\Services\FooterMenuService;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -37,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
             ['layouts.*', 'admin.*', 'errors.*', 'errors::*', 'home', 'products', 'services', 'contact'],
             fn ($view) => $view->with('siteSettings', SiteSetting::current()),
         );
+
+        View::composer('layouts.footer', function ($view): void {
+            $view->with('footerMenuItems', app(FooterMenuService::class)->items());
+        });
 
         View::composer('admin.*', fn ($view) => $view->with('enquiryNotifications', EnquiryNotificationController::summary()));
     }

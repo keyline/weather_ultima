@@ -113,5 +113,47 @@
                 <button type="submit" class="admin-btn admin-btn--primary" data-submit>Save settings</button>
             </div>
         </form>
+
+        <form method="POST" action="{{ route('admin.settings.site.footer-menu.update') }}" class="space-y-6">
+            @csrf
+            @method ('PUT')
+
+            <section class="admin-section space-y-4">
+                <div>
+                    <h2 class="admin-section-title">Footer menu order</h2>
+                    <p class="admin-hint">Choose a unique position for each footer link. The Blog link points to https://keylines.in/dev/weather/blog/.</p>
+                </div>
+
+                @error ('menu_order')
+                    <p class="admin-error">{{ $message }}</p>
+                @enderror
+
+                <div class="divide-y divide-slate-100">
+                    @foreach ($footerMenuItems as $index => $item)
+                        <div class="flex flex-col gap-3 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
+                            <div class="min-w-0">
+                                <p class="text-sm font-medium text-slate-800">{{ $item['label'] }}</p>
+                                <p class="admin-hint break-all">{{ $item['url'] }}</p>
+                            </div>
+                            <div class="w-full sm:w-36">
+                                <label for="footer-menu-order-{{ $item['key'] }}" class="admin-label">Position</label>
+                                <select id="footer-menu-order-{{ $item['key'] }}" name="menu_order[{{ $item['key'] }}]" class="admin-select">
+                                    @for ($position = 1; $position <= count($footerMenuItems); $position++)
+                                        <option value="{{ $position }}" @selected((int) old('menu_order.'.$item['key'], $index + 1) === $position)>{{ $position }}</option>
+                                    @endfor
+                                </select>
+                                @error ('menu_order.'.$item['key'])
+                                    <p class="admin-error">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="flex justify-end border-t border-slate-100 pt-5">
+                    <button type="submit" class="admin-btn admin-btn--primary">Save footer order</button>
+                </div>
+            </section>
+        </form>
     </div>
 @endsection

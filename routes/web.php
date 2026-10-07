@@ -136,6 +136,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::put('instagram', [InstagramSettingController::class, 'update'])->name('instagram.update');
             Route::post('instagram/test', [InstagramSettingController::class, 'test'])->middleware('throttle:10,1')->name('instagram.test');
             Route::get('site', [SiteSettingController::class, 'edit'])->name('site.edit');
+            Route::put('site/footer-menu', [SiteSettingController::class, 'updateFooterMenu'])->name('site.footer-menu.update');
             Route::put('site', [SiteSettingController::class, 'update'])->name('site.update');
             Route::get('maintenance', [MaintenanceController::class, 'edit'])->name('maintenance.edit');
             Route::post('maintenance/migrate', [MaintenanceController::class, 'migrate'])->middleware('throttle:5,1')->name('maintenance.migrate');

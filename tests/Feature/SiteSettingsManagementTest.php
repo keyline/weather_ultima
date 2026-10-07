@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\SiteSetting;
 use App\Models\User;
+use App\Services\FooterMenuService;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -47,7 +48,89 @@ class SiteSettingsManagementTest extends TestCase
         $this->actingAs($this->admin())
             ->get(route('admin.settings.site.edit'))
             ->assertOk()
-            ->assertSee('shown@weather.test');
+            ->assertSee('shown@weather.test')
+            ->assertSee('Footer menu order')
+            ->assertSee('https://keylines.in/dev/weather/blog/');
+    }
+
+    public function test_public_footer_includes_the_blog_link(): void
+    {
+        Storage::fake('local');
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('href="https://keylines.in/dev/weather/blog/" class="wx-footer-nav-link">Blog</a>', false);
+    }
+
+    public function test_admin_can_change_footer_link_order_without_changing_site_settings(): void
+    {
+        Storage::fake('local');
+        $settings = SiteSetting::query()->create($this->validPayload(['site_name' => 'Keep this setting']));
+        $settingsBefore = $settings->fresh()->getAttributes();
+        ksort($settingsBefore);
+
+        $this->actingAs($this->admin())
+            ->put(route('admin.settings.site.footer-menu.update'), [
+                'menu_order' => [
+                    'blog' => 1,
+                    'home' => 2,
+                    'about' => 3,
+                    'products' => 4,
+                    'services' => 5,
+                    'contact' => 6,
+                ],
+            ])
+            ->assertRedirect(route('admin.settings.site.edit'))
+            ->assertSessionHas('status', 'Footer menu order saved.');
+
+        Storage::disk('local')->assertExists('site-settings/footer-menu-order.json');
+        $settingsAfter = $settings->fresh()->getAttributes();
+        ksort($settingsAfter);
+        $this->assertSame($settingsBefore, $settingsAfter);
+        $this->assertSame(
+            ['blog', 'home', 'about', 'products', 'services', 'contact'],
+            array_column(app(FooterMenuService::class)->items(), 'key'),
+        );
+
+        $html = $this->get(route('home'))->assertOk()->getContent();
+        $footerStart = strpos($html, '<footer class="wx-footer-new">');
+        $this->assertNotFalse($footerStart);
+        $footer = substr($html, $footerStart);
+        $blogPosition = strpos($footer, 'href="https://keylines.in/dev/weather/blog/"');
+        $homePosition = strpos($footer, 'href="'.route('home').'" class="wx-footer-nav-link"');
+
+        $this->assertNotFalse($blogPosition);
+        $this->assertNotFalse($homePosition);
+        $this->assertLessThan($homePosition, $blogPosition);
+    }
+
+    public function test_footer_link_positions_must_be_unique(): void
+    {
+        Storage::fake('local');
+
+        $this->actingAs($this->admin())
+            ->put(route('admin.settings.site.footer-menu.update'), [
+                'menu_order' => [
+                    'home' => 1,
+                    'about' => 2,
+                    'products' => 3,
+                    'services' => 4,
+                    'contact' => 5,
+                    'blog' => 5,
+                ],
+            ])
+            ->assertSessionHasErrors();
+
+        Storage::disk('local')->assertMissing('site-settings/footer-menu-order.json');
+    }
+
+    public function test_non_admin_cannot_change_footer_menu_order(): void
+    {
+        $user = User::factory()->create(['role' => 'user']);
+
+        $this->actingAs($user)
+            ->put(route('admin.settings.site.footer-menu.update'), [])
+            ->assertRedirect(route('admin.login'));
     }
 
     public function test_admin_can_update_general_contact_and_social_details(): void

@@ -25,19 +25,9 @@
                 </div>
 
                 <div class="wx-footer-col wx-footer-col--nav">
-                    <a href="{{ route('home') }}" class="wx-footer-nav-link"
-                        >Home</a
-                    >
-                    <a href="{{ route('about') }}" class="wx-footer-nav-link">About</a>
-                    <a href="{{ route('products') }}" class="wx-footer-nav-link"
-                        >Products</a
-                    >
-                    <a href="{{ route('services') }}" class="wx-footer-nav-link"
-                        >Services</a
-                    >
-                    <a href="{{ route('contact') }}" class="wx-footer-nav-link"
-                        >Contact</a
-                    >
+                    @foreach ($footerMenuItems as $item)
+                        <a href="{{ $item['url'] }}" class="wx-footer-nav-link">{{ $item['label'] }}</a>
+                    @endforeach
                 </div>
 
                 <div class="wx-footer-col wx-footer-col--services">
