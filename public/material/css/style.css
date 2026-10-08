@@ -3707,4 +3707,16 @@ body.wx-preloading {
 .wx-cta-banner p span {
     opacity: 0.92;
 }
-
+.inner_sidetextalign {
+    text-align: left;
+}
+.inner_sidetextalign #about-intro-title, .inner_sidetextalign #about-founder-title {
+    margin: 0;
+    margin-bottom: 20px;
+}
+.inner_sidetextalign p {
+    text-align: left !important;
+    margin: 0 !important;
+    max-width: none;
+    font-weight: 600;
+}
