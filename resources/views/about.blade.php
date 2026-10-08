@@ -20,10 +20,13 @@
     <div class="wx-about-page">
         <section class="wx-about-section" aria-labelledby="about-intro-title">
             <div class="container">
+                
                 <div class="row g-4 g-lg-5 align-items-center">
                     <div class="col-lg-7">
-                        <span class="wx-about-eyebrow">{{ $about['intro']['label'] }}</span>
-                        <h2 id="about-intro-title">{{ $about['intro']['title'] }}</h2>
+                        <div class="wx-section-head inner_sidetextalign">
+                            <h2 id="about-intro-title">{{ $about['intro']['label'] }}</h2>
+                            <p>{{ $about['intro']['title'] }}</p>
+                        </div>
                         @foreach ($about['intro']['paragraphs'] as $paragraph)
                             <p>{{ $paragraph }}</p>
                         @endforeach
@@ -39,8 +42,8 @@
             <section class="wx-about-section {{ $section === 'mission' ? 'wx-about-section--muted' : '' }}" aria-labelledby="about-{{ $section }}-title">
                 <div class="container">
                     <div class="wx-section-head">
-                        <span class="wx-about-eyebrow">{{ $about[$section]['label'] }}</span>
-                        <h2 id="about-{{ $section }}-title">{{ $about[$section]['title'] }}</h2>
+                        <h2 id="about-{{ $section }}-title">{{ $about[$section]['label'] }}</h2>
+                        <p>{{ $about[$section]['title'] }}</p>
                     </div>
                     <div class="wx-about-carousel wx-testimonial-carousel owl-carousel" role="region" aria-label="{{ $about[$section]['label'] }} carousel">
                         @foreach ($about[$section]['cards'] as $card)
@@ -62,6 +65,7 @@
 
         <section class="wx-about-section wx-about-section--muted" aria-labelledby="about-founder-title">
             <div class="container">
+                
                 <div class="row g-4 g-lg-5">
                     <div class="col-lg-4">
                         <figure class="wx-about-founder-image">
@@ -70,8 +74,10 @@
                         </figure>
                     </div>
                     <div class="col-lg-8">
-                        <span class="wx-about-eyebrow">{{ $about['founder']['label'] }}</span>
-                        <h2 id="about-founder-title">{{ $about['founder']['title'] }}</h2>
+                        <div class="wx-section-head inner_sidetextalign">
+                            <h2 id="about-founder-title">{{ $about['founder']['label'] }}</h2>
+                            <p>{{ $about['founder']['title'] }}</p>
+                        </div>
                         @foreach ($about['founder']['paragraphs'] as $paragraph)
                             <p>{{ $paragraph }}</p>
                         @endforeach
@@ -84,7 +90,7 @@
         <section class="wx-about-section" aria-labelledby="about-team-title">
             <div class="container">
                 <div class="wx-section-head"><h2 id="about-team-title">{{ $about['team_title'] }}</h2>
-                    <p>THE PEOPLE WHO ALWAYS STAND BY US</p>
+                    
                 </div>
                 <div class="row g-4 justify-content-center">
                     @foreach ($about['team'] as $member)
@@ -107,7 +113,9 @@
 
         <section class="wx-about-section wx-about-section--muted" aria-labelledby="about-northstar-title">
             <div class="container">
-                <div class="wx-section-head"><h2 id="about-northstar-title">{{ $about['northstar_title'] }}</h2></div>
+                <div class="wx-section-head"><h2 id="about-northstar-title">{{ $about['northstar_title'] }}</h2>
+                <p>THE PEOPLE WHO ALWAYS STAND BY US</p>
+            </div>
                 <div class="row g-4">
                     @foreach ($about['northstar'] as $person)
                         <div class="col-6 col-md-4 col-lg-3">
