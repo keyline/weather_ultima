@@ -118,7 +118,7 @@
         <div class="container">
             <div class="wx-station-card wow fadeInUp" data-wow-duration="1s">
                 <div class="wx-section-head">
-                    <h2>Our Weather Station</h2>
+                    <h2>OUR WEATHER STATIONS</h2>
                 </div>
 
                 <div class="wx-station-tabs" role="tablist">
@@ -256,7 +256,7 @@
             <div class="container">
                 <div class="wx-section-head wow fadeInUp" data-wow-duration="1s">
                     <h2>Core Values</h2>
-                    <p>Our RAINBOW Has More Than Colours.<br />It Has Values.</p>
+                    <p>Our RAINBOW Has More Than Colours. It Has Values.</p>
                 </div>
                 <div class="wx-values-list">
                     @foreach ($coreValues as $value)

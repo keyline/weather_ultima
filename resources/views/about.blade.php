@@ -83,7 +83,9 @@
 
         <section class="wx-about-section" aria-labelledby="about-team-title">
             <div class="container">
-                <div class="wx-section-head"><h2 id="about-team-title">{{ $about['team_title'] }}</h2></div>
+                <div class="wx-section-head"><h2 id="about-team-title">{{ $about['team_title'] }}</h2>
+                    <p>THE PEOPLE WHO ALWAYS STAND BY US</p>
+                </div>
                 <div class="row g-4 justify-content-center">
                     @foreach ($about['team'] as $member)
                         <div class="col-md-6 col-lg-4">
