@@ -3709,10 +3709,11 @@ body.wx-preloading {
 }
 .inner_sidetextalign {
     text-align: left;
+    margin-bottom: 20px;
 }
 .inner_sidetextalign #about-intro-title, .inner_sidetextalign #about-founder-title {
     margin: 0;
-    margin-bottom: 20px;
+    
 }
 .inner_sidetextalign p {
     text-align: left !important;
