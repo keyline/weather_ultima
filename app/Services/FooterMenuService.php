@@ -20,7 +20,7 @@ class FooterMenuService
         'products' => ['label' => 'Products', 'route' => 'products', 'url' => null],
         'services' => ['label' => 'Services', 'route' => 'services', 'url' => null],
         'contact' => ['label' => 'Contact', 'route' => 'contact', 'url' => null],
-        'blog' => ['label' => 'Blog', 'route' => null, 'url' => 'https://keylines.in/dev/weather/blog/'],
+        'blog' => ['label' => 'Blog', 'route' => null, 'url' => 'https://weatherultima.com/blog/'],
     ];
 
     /**

@@ -121,7 +121,7 @@
             <section class="admin-section space-y-4">
                 <div>
                     <h2 class="admin-section-title">Footer menu order</h2>
-                    <p class="admin-hint">Choose a unique position for each footer link. The Blog link points to https://keylines.in/dev/weather/blog/.</p>
+                    <p class="admin-hint">Choose a unique position for each footer link. The Blog link points to https://weatherultima.com/blog/.</p>
                 </div>
 
                 @error ('menu_order')

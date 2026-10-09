@@ -50,7 +50,7 @@ class SiteSettingsManagementTest extends TestCase
             ->assertOk()
             ->assertSee('shown@weather.test')
             ->assertSee('Footer menu order')
-            ->assertSee('https://keylines.in/dev/weather/blog/');
+            ->assertSee('https://weatherultima.com/blog/');
     }
 
     public function test_public_footer_includes_the_blog_link(): void
@@ -59,7 +59,7 @@ class SiteSettingsManagementTest extends TestCase
 
         $this->get(route('home'))
             ->assertOk()
-            ->assertSee('href="https://keylines.in/dev/weather/blog/" class="wx-footer-nav-link">Blog</a>', false);
+            ->assertSee('href="https://weatherultima.com/blog/" class="wx-footer-nav-link">Blog</a>', false);
     }
 
     public function test_admin_can_change_footer_link_order_without_changing_site_settings(): void
@@ -96,7 +96,7 @@ class SiteSettingsManagementTest extends TestCase
         $footerStart = strpos($html, '<footer class="wx-footer-new">');
         $this->assertNotFalse($footerStart);
         $footer = substr($html, $footerStart);
-        $blogPosition = strpos($footer, 'href="https://keylines.in/dev/weather/blog/"');
+        $blogPosition = strpos($footer, 'href="https://weatherultima.com/blog/"');
         $homePosition = strpos($footer, 'href="'.route('home').'" class="wx-footer-nav-link"');
 
         $this->assertNotFalse($blogPosition);
