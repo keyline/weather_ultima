@@ -34,15 +34,15 @@
                     <h4>Services</h4>
                     <div class="wx-footer-services-grid">
                         <ul>
-                            <li><a href="https://weather-dev.keylines.in/services" target="_blank">Ultimate Weather</a></li>
-                            <li><a href="https://weather-dev.keylines.in/services" target="_blank">Station Craft</a></li>
-                            <li><a href="https://weather-dev.keylines.in/services" target="_blank">WeatherWise Academy</a></li>
-                            <li><a href="https://weather-dev.keylines.in/services" target="_blank">SolarSphere</a></li>
+                            <li><a href="https://weatherultima.com/services" target="_blank">Ultimate Weather</a></li>
+                            <li><a href="https://weatherultima.com/services" target="_blank">Station Craft</a></li>
+                            <li><a href="https://weatherultima.com/services" target="_blank">WeatherWise Academy</a></li>
+                            <li><a href="https://weatherultima.com/services" target="_blank">SolarSphere</a></li>
                         </ul>
                         <ul>
-                            <li><a href="https://weather-dev.keylines.in/services" target="_blank">WaterSphere</a></li>
-                            <li><a href="https://weather-dev.keylines.in/services" target="_blank">MetEdge Consulting</a></li>
-                            <li><a href="https://weather-dev.keylines.in/services" target="_blank">GreenHorizon</a></li>
+                            <li><a href="https://weatherultima.com/services" target="_blank">WaterSphere</a></li>
+                            <li><a href="https://weatherultima.com/services" target="_blank">MetEdge Consulting</a></li>
+                            <li><a href="https://weatherultima.com/services" target="_blank">GreenHorizon</a></li>
                         </ul>
                     </div>
                 </div>
