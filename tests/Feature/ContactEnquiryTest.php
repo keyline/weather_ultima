@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Mail\ContactEnquiryNotification;
 use App\Models\ContactEnquiry;
 use App\Models\EmailSetting;
+use App\Models\SiteSetting;
 use App\Models\User;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -90,6 +91,27 @@ class ContactEnquiryTest extends TestCase
 
         $this->assertDatabaseHas('contact_enquiries', ['email' => 'asha@example.com']);
         Mail::assertNothingSent();
+    }
+
+    public function test_notification_email_shows_the_website_logo_instead_of_the_laravel_logo(): void
+    {
+        config(['app.name' => 'Laravel']);
+        SiteSetting::query()->create(['site_name' => 'Weather Ultima', 'header_logo_path' => 'site/logo.png']);
+        $settings = EmailSetting::query()->create([
+            'contact_notification_email' => 'admin@example.com',
+            'product_notification_email' => 'admin@example.com',
+            'sender_name' => 'Weather Ultima',
+            'contact_subject' => 'New enquiry',
+            'product_subject' => 'New product enquiry',
+            'contact_notifications_enabled' => true,
+        ]);
+
+        $mail = new ContactEnquiryNotification(ContactEnquiry::factory()->create(), $settings);
+
+        $mail->assertSeeInHtml(asset('storage/site/logo.png'), false);
+        $mail->assertSeeInHtml('alt="Weather Ultima"', false);
+        $mail->assertDontSeeInHtml('laravel.com/img/notification-logo', false);
+        $mail->assertSeeInHtml('Weather Ultima. All rights reserved.');
     }
 
     public function test_admin_can_open_the_enquiries_list(): void
