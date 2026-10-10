@@ -85,7 +85,7 @@
     <div class="wx-footer-bottom">
         <div class="container wx-footer-bottom-inner">
             <p>© {{ now()->year }} Weather Ultima. All rights reserved.</p>
-            <p>Designed &amp; Developed by <a href="https://keylines.net/" target="_blank" class="wx-footer-credit">KEYLINE</a></p>
+            <!-- <p>Designed &amp; Developed by <a href="https://keylines.net/" target="_blank" class="wx-footer-credit">KEYLINE</a></p> -->
         </div>
     </div>
 </footer>
